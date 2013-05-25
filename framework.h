@@ -36,7 +36,13 @@ public:
     
     Matrix();
     void setIdentity();
+    void clean();
+    
+    void  set(int i, int j, float stuff);
+    float get(int i, int j) const;
 };
 
+static Matrix operator *(const Matrix& a, const Matrix& b);
+static Vector operator *(const Matrix& a, const Vector& b);
 
 #endif /* defined(__GraphicPipeline__framework__) */

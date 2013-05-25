@@ -29,12 +29,48 @@ static Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.
 static Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
 static Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
 
+Matrix::Matrix(){
+    clean();
+}
+
 void Matrix::setIdentity(){
-    for(int i = 0; i < 16; ++i)
-        m[i] = 0;
+    clean();
     
     m[0]  = 1;
     m[5]  = 1;
     m[10] = 1;
     m[14] = 1;
+}
+
+void Matrix::clean(){
+    for(int i = 0; i < 16; ++i)
+        m[i] = 0;
+}
+
+void Matrix::set(int i, int j, float stuff){
+    m[j*4 + i] = stuff;
+}
+
+float Matrix::get(int i, int j) const{
+    return m[j*4 + i];
+}
+
+static Matrix operator *(const Matrix& a, const Matrix& b){
+    Matrix c; c.clean();
+    for(int i = 0; i < 4; ++i){
+        for(int j = 0; j < 4; ++j){
+            for(int t = 0; t < 4; ++t){
+                c.set(i,j, c.get(i,j) + a.get(i,t) * b.get(t,i));
+            }
+        }
+    }
+    return c;
+}
+
+static Vector operator *(const Matrix& a, const Vector& b){
+    float x = a.m[0] * b.x + a.m[4] * b.y + a.m[8]  * b.z + a.m[12];
+    float y = a.m[1] * b.x + a.m[5] * b.y + a.m[9]  * b.z + a.m[13];
+    float z = a.m[2] * b.x + a.m[6] * b.y + a.m[10] * b.z + a.m[14];
+    
+    return Vector(x,y,z);
 }
