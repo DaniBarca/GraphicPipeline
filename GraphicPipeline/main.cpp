@@ -7,12 +7,22 @@
 //
 
 #include <iostream>
+#include "image.hpp"
+#include "framework.h"
+
+#define WIDTH  500
+#define HEIGHT 500
 
 int main(int argc, const char * argv[])
 {
-
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    //Image* img = new Image(WIDTH,HEIGHT);
+    
+    //Leer archivo
+    Vector a = Vector(2,2,2);
+    a.norm();
+    
+    std::cout << "x " << a.x << " y " << a.y << " z " << a.z;
+    
     return 0;
 }
 
