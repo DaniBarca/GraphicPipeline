@@ -28,3 +28,13 @@ void Vector::norm(){
 static Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }
 static Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
 static Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
+
+void Matrix::setIdentity(){
+    for(int i = 0; i < 16; ++i)
+        m[i] = 0;
+    
+    m[0]  = 1;
+    m[5]  = 1;
+    m[10] = 1;
+    m[14] = 1;
+}
