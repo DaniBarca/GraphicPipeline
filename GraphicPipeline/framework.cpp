@@ -29,6 +29,8 @@ static Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.
 static Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
 static Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
 
+//---------------------------------------------
+
 Matrix::Matrix(){
     clean();
 }
