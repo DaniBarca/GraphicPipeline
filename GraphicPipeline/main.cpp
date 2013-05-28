@@ -22,7 +22,7 @@ int main(int argc, const char * argv[])
     a.norm();
     
     std::cout << "x " << a.x << " y " << a.y << " z " << a.z;
-    
+	system("pause");
     return 0;
 }
 
