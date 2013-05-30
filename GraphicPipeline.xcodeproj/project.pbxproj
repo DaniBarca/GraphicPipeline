@@ -27,13 +27,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7706E94F1757CC4100226BEB /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework.h; sourceTree = "<group>"; };
 		775D602F174BC80A000C2BBA /* GraphicPipeline */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphicPipeline; sourceTree = BUILT_PRODUCTS_DIR; };
 		775D6032174BC80A000C2BBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		775D6034174BC80A000C2BBA /* GraphicPipeline.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = GraphicPipeline.1; sourceTree = "<group>"; };
 		775D603B174BC877000C2BBA /* image.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = image.hpp; sourceTree = "<group>"; };
 		775D603C174BC924000C2BBA /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
 		775D603D174BC924000C2BBA /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
-		775D6040174BCA9B000C2BBA /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../framework.h; sourceTree = "<group>"; };
 		775D6042174BCEDE000C2BBA /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +72,7 @@
 				775D6034174BC80A000C2BBA /* GraphicPipeline.1 */,
 				775D603C174BC924000C2BBA /* Object.cpp */,
 				775D603D174BC924000C2BBA /* Object.h */,
-				775D6040174BCA9B000C2BBA /* framework.h */,
+				7706E94F1757CC4100226BEB /* framework.h */,
 				775D6042174BCEDE000C2BBA /* framework.cpp */,
 			);
 			path = GraphicPipeline;
@@ -228,6 +228,7 @@
 				775D603A174BC80A000C2BBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
