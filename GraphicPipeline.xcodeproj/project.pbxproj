@@ -12,6 +12,7 @@
 		775D603E174BC924000C2BBA /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 775D603C174BC924000C2BBA /* Object.cpp */; };
 		775D6043174BCEDE000C2BBA /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 775D6042174BCEDE000C2BBA /* framework.cpp */; };
 		77DADB4C1757D09C00368A58 /* text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB4A1757D09C00368A58 /* text.cpp */; };
+		77DADB4F1757D21100368A58 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB4D1757D21100368A58 /* Mesh.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,9 @@
 		775D6042174BCEDE000C2BBA /* framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = framework.cpp; sourceTree = "<group>"; };
 		77DADB4A1757D09C00368A58 /* text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = text.cpp; sourceTree = "<group>"; };
 		77DADB4B1757D09C00368A58 /* text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text.h; sourceTree = "<group>"; };
+		77DADB4D1757D21100368A58 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
+		77DADB4E1757D21100368A58 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		77DADB501757DECF00368A58 /* Polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Polygon.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,9 @@
 				775D6034174BC80A000C2BBA /* GraphicPipeline.1 */,
 				775D603C174BC924000C2BBA /* Object.cpp */,
 				775D603D174BC924000C2BBA /* Object.h */,
+				77DADB501757DECF00368A58 /* Polygon.hpp */,
+				77DADB4D1757D21100368A58 /* Mesh.cpp */,
+				77DADB4E1757D21100368A58 /* Mesh.h */,
 				7706E94F1757CC4100226BEB /* framework.h */,
 				775D6042174BCEDE000C2BBA /* framework.cpp */,
 			);
@@ -146,6 +153,7 @@
 				775D603E174BC924000C2BBA /* Object.cpp in Sources */,
 				775D6043174BCEDE000C2BBA /* framework.cpp in Sources */,
 				77DADB4C1757D09C00368A58 /* text.cpp in Sources */,
+				77DADB4F1757D21100368A58 /* Mesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
