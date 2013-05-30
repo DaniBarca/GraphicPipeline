@@ -18,8 +18,12 @@ int main(int argc, const char * argv[])
 {
     //Image* img = new Image(WIDTH,HEIGHT);
     
+    if(argc != 2)
+        std::cout << "ERROR: número de argumentos incorrecto" << std::endl;
+    
     //Leer archivo
-    Mesh m = Mesh("/Users/danibarca/Documents/Programas/GraphicPipeline/data/cono.txt");
+    std::string dir = argv[1];
+    Mesh m = Mesh(dir);
     
 	system("pause");
     return 0;

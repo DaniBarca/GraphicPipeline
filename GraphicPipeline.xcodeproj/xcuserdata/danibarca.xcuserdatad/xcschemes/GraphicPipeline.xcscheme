@@ -57,6 +57,12 @@
             ReferencedContainer = "container:GraphicPipeline.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "/Users/danibarca/Documents/Programas/GraphicPipeline/data/cono.txt"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
