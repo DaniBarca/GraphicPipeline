@@ -3,3 +3,7 @@
 GraphicPipeline.xcodeproj/project.xcworkspace/xcuserdata/danibarca.xcuserdatad/UserInterfaceState.xcuserstate
 
 *.o
+
+*.xcbkptlist
+
+GraphicPipeline.xcodeproj/xcuserdata/danibarca.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist

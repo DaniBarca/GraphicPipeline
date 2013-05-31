@@ -12,12 +12,15 @@
 #include <iostream>
 #include <vector>
 #include "framework.h"
+#include "Mesh.h"
 
 class Object{
 private:
-    std::vector<Vector*> vertices;
+    Mesh* mesh;
+    Matrix* model;
+    
 public:
-    Object();
+    Object(std::string dir, Vector position);
 };
 
 #endif /* defined(__GraphicPipeline__Object__) */

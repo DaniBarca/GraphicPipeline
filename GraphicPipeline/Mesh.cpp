@@ -54,14 +54,12 @@ bool Mesh::parseFile(std::string dir){
             
             auxb->vertexs->push_back(vertexs->at(num));
             
-            std::cout << num << " ";
+            std::cout << num+1 << " ";
         }
         std::cout << std::endl;
         
         polygons->push_back(auxb);
     }
-    
-
     
     return true;
 }

@@ -8,5 +8,11 @@
 
 #include "Object.h"
 
-Object::Object(){}
+Object::Object(std::string dir, Vector position){
+    mesh = new Mesh(dir.c_str());
+    model= new Matrix();
+    model->setIdentity();
+    
+    model->setPosition(position);
+}
 

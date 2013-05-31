@@ -30,6 +30,12 @@ static Vector operator +(const Vector& a, const Vector& b);
 static Vector operator -(const Vector& a, const Vector& b);
 static Vector operator /(const Vector& a, const float&  b);
 
+/*  0  1  2  3  4
+ *  5  6  7  8  9
+ *  10 11 12 13 14
+ *  15 16 17 18 19
+ */
+
 class Matrix{
 public:
     float m[16];
@@ -40,6 +46,8 @@ public:
     
     void  set(int i, int j, float stuff);
     float get(int i, int j) const;
+    
+    void setPosition(Vector position);
 };
 
 static Matrix operator *(const Matrix& a, const Matrix& b);

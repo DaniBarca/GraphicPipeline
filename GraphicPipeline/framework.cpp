@@ -25,6 +25,8 @@ void Vector::norm(){
     this->z = a.z;
 }
 
+//-----------Operators
+
 static Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }
 static Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
 static Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
@@ -57,6 +59,14 @@ float Matrix::get(int i, int j) const{
     return m[j*4 + i];
 }
 
+void Matrix::setPosition(Vector position){
+    m[4] = -position.x;
+    m[9] = -position.y;
+    m[14]= -position.z;
+}
+
+//------------Operators
+
 static Matrix operator *(const Matrix& a, const Matrix& b){
     Matrix c; c.clean();
     for(int i = 0; i < 4; ++i){
@@ -76,3 +86,5 @@ static Vector operator *(const Matrix& a, const Vector& b){
     
     return Vector(x,y,z);
 }
+
+//-------------------------

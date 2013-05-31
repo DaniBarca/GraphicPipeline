@@ -10,6 +10,7 @@
 #include "image.hpp"
 #include "framework.h"
 #include "Mesh.h"
+#include "Object.h"
 
 #define WIDTH  500
 #define HEIGHT 500
@@ -23,7 +24,7 @@ int main(int argc, const char * argv[])
     
     //Leer archivo
     std::string dir = argv[1];
-    Mesh m = Mesh(dir);
+    Object o  = Object(dir, Vector(0,0,0));
     
 	system("pause");
     return 0;
