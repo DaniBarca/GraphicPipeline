@@ -59,10 +59,14 @@ float Matrix::get(int i, int j) const{
     return m[j*4 + i];
 }
 
+void Matrix::setPosition(float x, float y, float z){
+    m[4] = -x;
+    m[9] = -y;
+    m[14]= -z;
+}
+
 void Matrix::setPosition(Vector position){
-    m[4] = -position.x;
-    m[9] = -position.y;
-    m[14]= -position.z;
+    setPosition(position.x,position.y,position.z);
 }
 
 //------------Operators

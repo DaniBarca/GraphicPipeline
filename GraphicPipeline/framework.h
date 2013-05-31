@@ -47,6 +47,7 @@ public:
     void  set(int i, int j, float stuff);
     float get(int i, int j) const;
     
+    void setPosition(float x, float y, float z);
     void setPosition(Vector position);
 };
 

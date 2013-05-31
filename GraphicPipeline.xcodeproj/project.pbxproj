@@ -13,6 +13,7 @@
 		775D6043174BCEDE000C2BBA /* framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 775D6042174BCEDE000C2BBA /* framework.cpp */; };
 		77DADB4C1757D09C00368A58 /* text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB4A1757D09C00368A58 /* text.cpp */; };
 		77DADB4F1757D21100368A58 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB4D1757D21100368A58 /* Mesh.cpp */; };
+		77DADB531758E30B00368A58 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 77DADB511758E30B00368A58 /* Camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +43,8 @@
 		77DADB4D1757D21100368A58 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mesh.cpp; sourceTree = "<group>"; };
 		77DADB4E1757D21100368A58 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		77DADB501757DECF00368A58 /* Polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Polygon.hpp; sourceTree = "<group>"; };
+		77DADB511758E30B00368A58 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		77DADB521758E30B00368A58 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,8 @@
 				775D6034174BC80A000C2BBA /* GraphicPipeline.1 */,
 				775D603C174BC924000C2BBA /* Object.cpp */,
 				775D603D174BC924000C2BBA /* Object.h */,
+				77DADB511758E30B00368A58 /* Camera.cpp */,
+				77DADB521758E30B00368A58 /* Camera.h */,
 				77DADB501757DECF00368A58 /* Polygon.hpp */,
 				77DADB4D1757D21100368A58 /* Mesh.cpp */,
 				77DADB4E1757D21100368A58 /* Mesh.h */,
@@ -154,6 +159,7 @@
 				775D6043174BCEDE000C2BBA /* framework.cpp in Sources */,
 				77DADB4C1757D09C00368A58 /* text.cpp in Sources */,
 				77DADB4F1757D21100368A58 /* Mesh.cpp in Sources */,
+				77DADB531758E30B00368A58 /* Camera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
