@@ -43,7 +43,7 @@ void Matrix::setIdentity(){
     m[0]  = 1;
     m[5]  = 1;
     m[10] = 1;
-    m[14] = 1;
+    m[15] = 1;
 }
 
 void Matrix::clean(){
@@ -60,9 +60,9 @@ float Matrix::get(int i, int j) const{
 }
 
 void Matrix::setPosition(float x, float y, float z){
-    m[4] = -x;
-    m[9] = -y;
-    m[14]= -z;
+    m[3] = -x;
+    m[7] = -y;
+    m[11]= -z;
 }
 
 void Matrix::setPosition(Vector position){

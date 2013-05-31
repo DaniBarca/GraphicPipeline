@@ -14,4 +14,6 @@ Camera::Camera(Vector position, Vector lookat){
     
     N = lookat - position;
     N.norm();
+    
+    
 }
