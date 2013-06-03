@@ -2,6 +2,7 @@
 #define _TEXT_INC
 
 #include <stdlib.h>
+#include <string.h>
 
 /*
 A classic, used everywhere to read formatted text files without using Lex
