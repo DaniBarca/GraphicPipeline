@@ -13,7 +13,9 @@
 #include <math.h>
 
 #define DEG2RAD 0.01745329252
+#define RAD2DEG 57.295779513
 #define DEGTORAD(d) d*DEG2RAD
+#define RADTODEG(r) r*RAD2DEG
 
 class Vector{
 public:
