@@ -21,6 +21,7 @@ public:
     Vector V;
     
     Camera(Vector position, Vector lookat);
+    void setUVN();
 };
 
 #endif /* defined(__GraphicPipeline__Camera__) */

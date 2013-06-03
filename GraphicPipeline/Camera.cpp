@@ -28,4 +28,13 @@ Camera::Camera(Vector position, Vector lookat){
     r.clean();
     r.setRotationMatrix(DEGTORAD(90), Vector(0,0,1));
     r.rotateVector(U);
+    
+    //Aplicamos U, V, N a la matriz:
+    setUVN();
+}
+
+void Camera::setUVN(){    
+    model->m[0] = U.x; model->m[1] = U.y; model->m[2] = U.z;
+    model->m[4] = V.x; model->m[5] = V.y; model->m[6] = V.z;
+    model->m[8] = N.x; model->m[9] = N.y; model->m[10]= N.z;
 }
