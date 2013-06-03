@@ -34,6 +34,7 @@ public:
 Vector operator +(const Vector& a, const Vector& b);
 Vector operator -(const Vector& a, const Vector& b);
 Vector operator /(const Vector& a, const float&  b);
+Vector operator *(const Vector& a, const float&  b);
 
 /*  0  1  2  3
  *  4  5  6  7
