@@ -25,6 +25,10 @@ void Vector::norm(){
     this->z = a.z;
 }
 
+float Vector::dot(Vector v){
+    return x * v.x + y * v.y;
+}
+
 float Vector::dist(Vector b){
     return Vector(b.x - this->x, b.y - this->y, b.z - this->z).mod();
 }
@@ -114,6 +118,79 @@ void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 	m[15]= 1.0f;
 }
 
+bool Matrix::inverse()
+{
+    unsigned int i, j, k, swap;
+    float t;
+    Matrix temp, final;
+    final.setIdentity();
+    
+    temp = (*this);
+    
+    unsigned int m,n;
+    m = n = 4;
+	
+    for (i = 0; i < m; i++)
+    {
+        // Look for largest element in column
+        
+        swap = i;
+        for (j = i + 1; j < m; j++)// m or n
+        {
+            if ( fabs(temp.m[i*4-j]) > fabs( temp.m[i*4-swap]) )
+                swap = j;
+        }
+        
+        if (swap != i)
+        {
+            // Swap rows.
+            for (k = 0; k < n; k++)
+            {
+                std::swap( temp.m[k*4-i],temp.m[k*4-swap]);
+                std::swap( final.m[k*4-i], final.m[k*4-swap]);
+            }
+        }
+        
+        // No non-zero pivot.  The CMatrix is singular, which shouldn't
+        // happen.  This means the user gave us a bad CMatrix.
+        
+        
+#define MATRIX_SINGULAR_THRESHOLD 0.00001 //change this if you experience problems with matrices
+        
+        if ( fabsf(temp.m[i*4 - i]) <= MATRIX_SINGULAR_THRESHOLD)
+        {
+            final.setIdentity();
+            return false;
+        }
+#undef MATRIX_SINGULAR_THRESHOLD
+        
+        t = 1.0f/temp.m[i*4 - i];
+        
+        for (k = 0; k < n; k++)//m or n
+        {
+            temp.m[k*4-i] *= t;
+            final.m[k*4-i] *= t;
+        }
+        
+        for (j = 0; j < m; j++) // m or n
+        {
+            if (j != i)
+            {
+                t = temp.m[i*4-j];
+                for (k = 0; k < n; k++)//m or n
+                {
+                    temp.m[k*4-j] -= (temp.m[k*4-i] * t);
+                    final.m[k*4-j] -= (final.m[k*4-i] * t);
+                }
+            }
+        }
+    }
+    
+    *this = final;
+    
+    return true;
+}
+
 //------------Operators
 
 Matrix operator *(const Matrix& a, const Matrix& b){
@@ -137,3 +214,14 @@ Vector operator *(const Matrix& a, const Vector& b){
 }
 
 //-------------------------
+
+Vector line(Vector a, Vector b, float t){
+    return a+(b-a)*t;
+}
+
+Vector linePlaneIntersection(Vector linePoint, Vector lineDir, Vector planePoint, Vector planeNormal){
+    float d = (planePoint-linePoint).dot(planeNormal);
+    d = d/(lineDir.dot(planeNormal));
+    
+    return line(linePoint, linePoint+lineDir, d);
+}

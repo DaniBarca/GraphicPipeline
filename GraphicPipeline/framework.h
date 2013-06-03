@@ -29,6 +29,7 @@ public:
     
     float mod();
     void norm();
+    float dot(Vector);
     
     float dist(Vector);
 };
@@ -62,9 +63,12 @@ public:
     Vector rotateVector(Vector v);
     void setRotationMatrix(float angle, Vector axis);
     void setTraslationMatrix(float x, float y, float z);
+    bool inverse();
 };
 
 Matrix operator *(const Matrix& a, const Matrix& b);
 Vector operator *(const Matrix& a, const Vector& b);
+
+Vector line(Vector, Vector, float);
 
 #endif /* defined(__GraphicPipeline__framework__) */
