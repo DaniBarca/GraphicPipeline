@@ -25,6 +25,10 @@ void Vector::norm(){
     this->z = a.z;
 }
 
+float Vector::dist(Vector b){
+    return Vector(b.x - this->x, b.y - this->y, b.z - this->z).mod();
+}
+
 //-----------Operators
 
 Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }

@@ -29,6 +29,8 @@ public:
     
     float mod();
     void norm();
+    
+    float dist(Vector);
 };
 
 Vector operator +(const Vector& a, const Vector& b);
