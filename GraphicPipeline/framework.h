@@ -12,6 +12,9 @@
 #include <iostream>
 #include <math.h>
 
+#define DEG2RAD 0.01745329252
+#define DEGTORAD(d) d*DEG2RAD
+
 class Vector{
 public:
     struct{
