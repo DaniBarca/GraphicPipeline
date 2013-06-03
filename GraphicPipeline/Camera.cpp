@@ -32,6 +32,8 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     //Aplicamos U, V, N a la matriz:
     setUVN();
     
+    plane.width  = width;
+    plane.height = height;
     plane.center = position + N*5;
     plane.corner = plane.center + U*width + V*height;
 }

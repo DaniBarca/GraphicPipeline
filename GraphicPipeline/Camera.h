@@ -14,6 +14,8 @@
 
 class Camera{
     struct plane{
+        int width;
+        int height;
         Vector center;
         Vector corner;
     }plane;
