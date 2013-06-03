@@ -11,7 +11,7 @@
 Camera::Camera(Vector position, Vector lookat){
     Matrix r = Matrix();
     model = new Matrix();
-    model->setPosition(position);
+    model->setPosition(-position.x, -position.y, -position.z);
     
     //Obtenemos N
     N = lookat - position;
