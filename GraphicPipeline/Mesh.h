@@ -25,6 +25,8 @@ class Mesh{
 public:
     Mesh(std::string dir);
     bool parseFile(std::string dir);
+    
+    std::vector<Vector*>* getVertexs(){ return vertexs; }
 };
 
 #endif /* defined(__GraphicPipeline__Mesh__) */

@@ -21,6 +21,7 @@ private:
     
 public:
     Object(std::string dir, Vector position);
+    Mesh* getMesh(){ return mesh;}
 };
 
 #endif /* defined(__GraphicPipeline__Object__) */

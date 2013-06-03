@@ -69,6 +69,10 @@ public:
 Matrix operator *(const Matrix& a, const Matrix& b);
 Vector operator *(const Matrix& a, const Vector& b);
 
-Vector line(Vector, Vector, float);
+//Devuelve la posición t de la ecuación de la recta
+Vector line(Vector a, Vector b, float t);
+
+//Devuelve el punto de intersección entre una recta y un plano
+Vector linePlaneIntersection(Vector linePoint, Vector lineDir, Vector planePoint, Vector planeNormal);
 
 #endif /* defined(__GraphicPipeline__framework__) */
