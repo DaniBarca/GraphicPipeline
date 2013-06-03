@@ -7,7 +7,6 @@
 //
 
 #include <iostream>
-#include "image.hpp"
 #include "framework.h"
 #include "Mesh.h"
 #include "Object.h"
@@ -15,6 +14,8 @@
 
 #define WIDTH  500
 #define HEIGHT 500
+
+
 
 int main(int argc, const char * argv[])
 {

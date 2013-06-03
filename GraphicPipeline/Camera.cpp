@@ -49,8 +49,10 @@ void Camera::setUVN(){
 
 void Camera::render(Object o){
     std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
-    
+
+    Image i;
     for(int i = 0; i < vertexs->size(); ++i){
-        linePlaneIntersection(C, N, plane.center, N);
+        Vector vertex  =  linePlaneIntersection(C, N, plane.center, N);
+        //if((vertex - plane.center).x < )
     }
 }

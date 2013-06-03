@@ -11,10 +11,10 @@
 
 #include <iostream>
 #include "framework.h"
-#include "image.hpp"
 #include "Object.h"
 #include "Mesh.h"
 #include "Polygon.hpp"
+#include "image.hpp"
 
 
 class Camera{
