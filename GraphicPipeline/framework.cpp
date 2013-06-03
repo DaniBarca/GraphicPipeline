@@ -20,16 +20,16 @@ void Vector::norm(){
     Vector a;
     a = (*this)/mod();
     
-    this->x = a.x;
+    this->x = a.x; 
     this->y = a.y;
     this->z = a.z;
 }
 
 //-----------Operators
 
-static Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }
-static Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
-static Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
+Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }
+Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
+Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
 
 //---------------------------------------------
 
@@ -111,7 +111,7 @@ void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 
 //------------Operators
 
-static Matrix operator *(const Matrix& a, const Matrix& b){
+Matrix operator *(const Matrix& a, const Matrix& b){
     Matrix c; c.clean();
     for(int i = 0; i < 4; ++i){
         for(int j = 0; j < 4; ++j){
@@ -123,7 +123,7 @@ static Matrix operator *(const Matrix& a, const Matrix& b){
     return c;
 }
 
-static Vector operator *(const Matrix& a, const Vector& b){
+Vector operator *(const Matrix& a, const Vector& b){
     float x = a.m[0] * b.x + a.m[1] * b.y + a.m[2]  * b.z + a.m[3];
     float y = a.m[4] * b.x + a.m[5] * b.y + a.m[6]  * b.z + a.m[7];
     float z = a.m[8] * b.x + a.m[9] * b.y + a.m[10] * b.z + a.m[11];

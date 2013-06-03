@@ -31,9 +31,9 @@ public:
     void norm();
 };
 
-static Vector operator +(const Vector& a, const Vector& b);
-static Vector operator -(const Vector& a, const Vector& b);
-static Vector operator /(const Vector& a, const float&  b);
+Vector operator +(const Vector& a, const Vector& b);
+Vector operator -(const Vector& a, const Vector& b);
+Vector operator /(const Vector& a, const float&  b);
 
 /*  0  1  2  3
  *  4  5  6  7
@@ -61,7 +61,7 @@ public:
     void setTraslationMatrix(float x, float y, float z);
 };
 
-static Matrix operator *(const Matrix& a, const Matrix& b);
-static Vector operator *(const Matrix& a, const Vector& b);
+Matrix operator *(const Matrix& a, const Matrix& b);
+Vector operator *(const Matrix& a, const Vector& b);
 
 #endif /* defined(__GraphicPipeline__framework__) */
