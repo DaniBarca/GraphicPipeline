@@ -13,6 +13,8 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     model = new Matrix();
     model->setPosition(-position.x, -position.y, -position.z);
     
+    C = position;
+    
     //Obtenemos N
     N = lookat - position;
     N.norm();
@@ -32,7 +34,7 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     //Aplicamos U, V, N a la matriz:
     setUVN();
     
-    //Y generamos la información del plano
+    //Generamos la información del plano
     plane.width  = width;
     plane.height = height;
     plane.center = position + N*5;
@@ -45,4 +47,10 @@ void Camera::setUVN(){
     model->m[8] = N.x; model->m[9] = N.y; model->m[10]= N.z;
 }
 
-
+void Camera::render(Object o){
+    std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
+    
+    for(int i = 0; i < vertexs->size(); ++i){
+        linePlaneIntersection(C, N, plane.center, N);
+    }
+}

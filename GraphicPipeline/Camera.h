@@ -11,6 +11,11 @@
 
 #include <iostream>
 #include "framework.h"
+#include "image.hpp"
+#include "Object.h"
+#include "Mesh.h"
+#include "Polygon.hpp"
+
 
 class Camera{
     struct plane{
@@ -26,9 +31,12 @@ public:
     Vector N;
     Vector U;
     Vector V;
+    Vector C;
     
     Camera(Vector position, Vector lookat, int width = 500, int height = 500);
     void setUVN();
+    
+    void render(Object o);
 };
 
 #endif /* defined(__GraphicPipeline__Camera__) */
