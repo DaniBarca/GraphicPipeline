@@ -60,13 +60,53 @@ float Matrix::get(int i, int j) const{
 }
 
 void Matrix::setPosition(float x, float y, float z){
-    m[3] = -x;
-    m[7] = -y;
-    m[11]= -z;
+    m[3] = x;
+    m[7] = y;
+    m[11]= z;
 }
 
 void Matrix::setPosition(Vector position){
     setPosition(position.x,position.y,position.z);
+}
+
+Vector Matrix::rotateVector(Vector v){
+    Matrix temp = *this;
+	temp.m[3] = 0.0;
+	temp.m[7] = 0.0;
+	temp.m[11] = 0.0;
+	return temp * v;
+}
+
+void Matrix::setTraslationMatrix(float x, float y, float z){
+    setIdentity();
+    m[3] = x;
+    m[7] = y;
+    m[11] = z;
+}
+
+void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
+{
+	clean();
+	Vector axis_n = axis;
+	axis_n.norm();
+    
+	float c = cos( angle_in_rad );
+	float s = sin( angle_in_rad );
+	float t = 1 - c;
+    
+	m[0] = t * axis.x * axis.x + c;
+	m[4] = t * axis.x * axis.y - s * axis.z;
+	m[8] = t * axis.x * axis.z + s * axis.y;
+    
+	m[1] = t * axis.x * axis.y + s * axis.z;
+	m[5] = t * axis.y * axis.y + c;
+	m[9] = t * axis.y * axis.z - s * axis.x;
+    
+	m[2] = t * axis.x * axis.z - s * axis.y;
+	m[6] = t * axis.y * axis.z + s * axis.x;
+	m[10]= t * axis.z * axis.z + c;
+    
+	m[15]= 1.0f;
 }
 
 //------------Operators
@@ -84,9 +124,9 @@ static Matrix operator *(const Matrix& a, const Matrix& b){
 }
 
 static Vector operator *(const Matrix& a, const Vector& b){
-    float x = a.m[0] * b.x + a.m[4] * b.y + a.m[8]  * b.z + a.m[12];
-    float y = a.m[1] * b.x + a.m[5] * b.y + a.m[9]  * b.z + a.m[13];
-    float z = a.m[2] * b.x + a.m[6] * b.y + a.m[10] * b.z + a.m[14];
+    float x = a.m[0] * b.x + a.m[1] * b.y + a.m[2]  * b.z + a.m[3];
+    float y = a.m[4] * b.x + a.m[5] * b.y + a.m[6]  * b.z + a.m[7];
+    float z = a.m[8] * b.x + a.m[9] * b.y + a.m[10] * b.z + a.m[11];
     
     return Vector(x,y,z);
 }

@@ -49,6 +49,11 @@ public:
     
     void setPosition(float x, float y, float z);
     void setPosition(Vector position);
+    
+    //Adapted from Javier Agenjo's code:
+    Vector rotateVector(Vector v);
+    void setRotationMatrix(float angle, Vector axis);
+    void setTraslationMatrix(float x, float y, float z);
 };
 
 static Matrix operator *(const Matrix& a, const Matrix& b);
