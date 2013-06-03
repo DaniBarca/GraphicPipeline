@@ -32,10 +32,11 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     //Aplicamos U, V, N a la matriz:
     setUVN();
     
+    //Y generamos la información del plano
     plane.width  = width;
     plane.height = height;
     plane.center = position + N*5;
-    plane.corner = plane.center + U*width + V*height;
+    plane.corner = plane.center + U*(width*0.5) + V*(height*0.5);
 }
 
 void Camera::setUVN(){    
@@ -43,3 +44,5 @@ void Camera::setUVN(){
     model->m[4] = V.x; model->m[5] = V.y; model->m[6] = V.z;
     model->m[8] = N.x; model->m[9] = N.y; model->m[10]= N.z;
 }
+
+
