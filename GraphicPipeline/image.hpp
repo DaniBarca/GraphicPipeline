@@ -6,7 +6,6 @@
 
 #ifndef IMAGE_H
 #define IMAGE_H
-#define IGNORE_LAMBDAS
 
 #include <string.h>
 #include <stdio.h>
@@ -315,7 +314,6 @@ public:
 	}
 };
 
-/*
 #ifndef IGNORE_LAMBDAS
 
 //you can apply and algorithm for two images and store the result in the first one
@@ -327,5 +325,4 @@ void forEachPixel(Image& img, const Image& img2, F f) {
 }
 
 #endif
-*/
 #endif
