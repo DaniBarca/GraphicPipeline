@@ -8,7 +8,7 @@
 
 #include "Camera.h"
 
-Camera::Camera(Vector position, Vector lookat){
+Camera::Camera(Vector position, Vector lookat, int width, int height){
     Matrix r = Matrix();
     model = new Matrix();
     model->setPosition(-position.x, -position.y, -position.z);
@@ -31,6 +31,9 @@ Camera::Camera(Vector position, Vector lookat){
     
     //Aplicamos U, V, N a la matriz:
     setUVN();
+    
+    plane.center = position + N*5;
+    plane.corner = plane.center + U*width + V*height;
 }
 
 void Camera::setUVN(){    

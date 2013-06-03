@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
     
     //Leer archivo
     std::string dir = argv[1];
-    Object o  = Object(dir, Vector(0,0,0));
+    Object o = Object(dir, Vector(0,0,0));
     Camera *c = new Camera(Vector(0,10,10), Vector(0,0,0));
     c->setUVN();
     

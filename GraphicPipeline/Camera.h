@@ -13,6 +13,11 @@
 #include "framework.h"
 
 class Camera{
+    struct plane{
+        Vector center;
+        Vector corner;
+    }plane;
+    
 public:
     Matrix* model;
     
@@ -20,7 +25,7 @@ public:
     Vector U;
     Vector V;
     
-    Camera(Vector position, Vector lookat);
+    Camera(Vector position, Vector lookat, int width = 500, int height = 500);
     void setUVN();
 };
 
