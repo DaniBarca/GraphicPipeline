@@ -2,7 +2,7 @@
 //  image.cpp
 //  GraphicPipeline
 //
-//  Created by Dani Barca on 03/06/13.
+//  Created by Dani Barca - Álvaro Ibañez - Lucas Enric de Haan on 03/06/13.
 //  Copyright (c) 2013 Dani Barca. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  Camera.cpp
 //  GraphicPipeline
 //
-//  Created by Dani Barca on 31/05/13.
+//  Created by Dani Barca - Álvaro Ibañez - Lucas Enric de Haan on 31/05/13.
 //  Copyright (c) 2013 Dani Barca. All rights reserved.
 //
 
@@ -53,6 +53,6 @@ void Camera::render(Object o){
     Image i;
     for(int i = 0; i < vertexs->size(); ++i){
         Vector vertex  =  linePlaneIntersection(C, N, plane.center, N);
-        //if((vertex - plane.center).x < )
+        
     }
 }

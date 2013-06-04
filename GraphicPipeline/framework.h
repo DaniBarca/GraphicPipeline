@@ -2,7 +2,7 @@
 //  framework.h
 //  GraphicPipeline
 //
-//  Created by Dani Barca on 21/05/13.
+//  Created by Dani Barca - Álvaro Ibañez - Lucas Enric de Haan on 21/05/13.
 //  Copyright (c) 2013 Dani Barca. All rights reserved.
 //
 
