@@ -46,6 +46,7 @@ Matrix::Matrix(){
     clean();
 }
 
+//convierte la matriz en una matriz identidad
 void Matrix::setIdentity(){
     clean();
     
@@ -55,19 +56,23 @@ void Matrix::setIdentity(){
     m[15] = 1;
 }
 
+//pone a 0 toda la matriz
 void Matrix::clean(){
     for(int i = 0; i < 16; ++i)
         m[i] = 0;
 }
 
+//pone un numero en esa posicion
 void Matrix::set(int i, int j, float stuff){
     m[j*4 + i] = stuff;
 }
 
+//coger numero de la matriz en esa posición
 float Matrix::get(int i, int j) const{
     return m[j*4 + i];
 }
 
+//asignamos unos valores en esas posiciones de la matriz
 void Matrix::setPosition(float x, float y, float z){
     m[3] = x;
     m[7] = y;
@@ -78,6 +83,7 @@ void Matrix::setPosition(Vector position){
     setPosition(position.x,position.y,position.z);
 }
 
+//girar la matriz en la direccion de la rotacion
 Vector Matrix::rotateVector(Vector v){
     Matrix temp = *this;
 	temp.m[3] = 0.0;
@@ -86,6 +92,7 @@ Vector Matrix::rotateVector(Vector v){
 	return temp * v;
 }
 
+//asigna una translacion a una matriz
 void Matrix::setTraslationMatrix(float x, float y, float z){
     setIdentity();
     m[3] = x;
@@ -93,6 +100,7 @@ void Matrix::setTraslationMatrix(float x, float y, float z){
     m[11] = z;
 }
 
+//asigna una rotación
 void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 {
 	clean();
@@ -117,6 +125,7 @@ void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
     
 	m[15]= 1.0f;
 }
+
 
 bool Matrix::inverse()
 {
@@ -202,9 +211,10 @@ Matrix operator *(const Matrix& a, const Matrix& b){
             }
         }
     }
-    return c;
+    return c;	
 }
 
+//Multiplizar matriz con vector
 Vector operator *(const Matrix& a, const Vector& b){
     float x = a.m[0] * b.x + a.m[1] * b.y + a.m[2]  * b.z + a.m[3];
     float y = a.m[4] * b.x + a.m[5] * b.y + a.m[6]  * b.z + a.m[7];
