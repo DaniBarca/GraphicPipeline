@@ -83,6 +83,12 @@ void Matrix::setPosition(Vector position){
     setPosition(position.x,position.y,position.z);
 }
 
+Vector Matrix::traslateVector(Vector v){
+    v.x += m[3];
+    v.y += m[7];
+    v.z += m[11];
+}
+
 //girar la matriz en la direccion de la rotacion
 Vector Matrix::rotateVector(Vector v){
     Matrix temp = *this;

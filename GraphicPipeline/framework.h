@@ -59,6 +59,8 @@ public:
     void setPosition(float x, float y, float z);
     void setPosition(Vector position);
     
+    Vector traslateVector(Vector v);
+    
     //Adapted from Javier Agenjo's code:
     Vector rotateVector(Vector v);
     void setRotationMatrix(float angle, Vector axis);
