@@ -38,7 +38,7 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     plane.width  = width;
     plane.height = height;
     plane.center = position + N*5;
-    plane.corner = plane.center + U*(width*0.5) + V*(height*0.5);
+    plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
 }
 
 //Actualizar la matriz de vectores de la cámara
