@@ -37,7 +37,7 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     //Generamos la información del plano
     plane.width  = width;
     plane.height = height;
-    plane.center = position + N*5;
+    plane.center = position + N*DISTPLANEC;
     plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
 }
 
