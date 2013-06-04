@@ -39,6 +39,8 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     plane.height = height;
     plane.center = position + N*DISTPLANEC;
     plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
+    
+    FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
 }
 
 //Actualizar la matriz de vectores de la cámara

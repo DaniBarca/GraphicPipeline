@@ -34,6 +34,8 @@ public:
     Vector V;
     Vector C;
     
+    double FOV;
+    
     Camera(Vector position, Vector lookat, int width = 500, int height = 500);
     void setUVN();
     
