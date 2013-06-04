@@ -87,6 +87,7 @@ Vector Matrix::traslateVector(Vector v){
     v.x += m[3];
     v.y += m[7];
     v.z += m[11];
+    return v;
 }
 
 //girar la matriz en la direccion de la rotacion
