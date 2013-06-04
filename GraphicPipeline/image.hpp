@@ -71,6 +71,14 @@ public:
 		pixels = new Color[width*height];
 		memset(pixels, 0, width * height * sizeof(Color));
 	}
+    
+    void setBlack(){
+        for(int i = 0; i < width; ++i){
+            for(int j = 0; j < height; ++j){
+                setPixel(Color(0,0,0), i, j);
+            }
+        }
+    }
 
 	//copy constructor
 	Image(const Image& c) {
