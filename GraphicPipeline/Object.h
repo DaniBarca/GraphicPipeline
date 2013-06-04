@@ -17,11 +17,11 @@
 class Object{
 private:
     Mesh* mesh;
-    Matrix* model;
     
 public:
+    Matrix* model;
     Object(std::string dir, Vector position);
-    Mesh* getMesh(){ return mesh;}
+    Mesh* getMesh(){ return mesh; }
 };
 
 #endif /* defined(__GraphicPipeline__Object__) */

@@ -31,9 +31,14 @@ public:
     void norm();
     float dot(Vector);
     
+    void printVector(){
+        std::cout << x << " " << y << " " << z << std::endl;
+    }
+    
     float dist(Vector);
 };
 
+Vector operator *(const Vector& a, const Vector& b);
 Vector operator +(const Vector& a, const Vector& b);
 Vector operator -(const Vector& a, const Vector& b);
 Vector operator /(const Vector& a, const float&  b);
@@ -52,9 +57,22 @@ public:
     Matrix();
     void setIdentity();
     void clean();
+    void printMatrix(){
+        for(int i = 0; i < 4; ++i){
+            for(int j = 0; j < 4; ++j){
+                std::cout << get(i,j) << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
     
     void  set(int i, int j, float stuff);
     float get(int i, int j) const;
+    
+    void copy(Matrix mx){
+        for(int i = 0; i < 16; ++i)
+            m[i] = mx.m[i];
+    }
     
     void setPosition(float x, float y, float z);
     void setPosition(Vector position);

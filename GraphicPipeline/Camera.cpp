@@ -24,12 +24,12 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     
     //Rotamos V 90 grados hacia arriba
     r.setRotationMatrix(DEGTORAD(90), Vector(1,0,0));
-    r.rotateVector(V);
+    U = N * Vector(0,0,1);
     
     //Rotamos U 90 grados hacia la derecha
     r.clean();
     r.setRotationMatrix(DEGTORAD(90), Vector(0,0,1));
-    r.rotateVector(U);
+    V = U * N;
     
     //Aplicamos U, V, N a la matriz:
     setUVN();
@@ -39,6 +39,11 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     plane.height = height;
     plane.center = position + N*DISTPLANEC;
     plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
+    
+    /*N.printVector();
+    V.printVector();
+    U.printVector();*/
+    
     
     FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
 }
@@ -57,18 +62,29 @@ void Camera::render(Object o){
     Image *image = new Image(plane.width, plane.height);
     image->setBlack();
     
-    double dstPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);;
+    float dstPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
     int x,y;
+    Vector vaux;
+    
     for(int i = 0; i < vertexs->size(); ++i){
+        vaux = *vertexs->at(i);
         
-        x = (int)(((vertexs->at(i)->x * 0.2) / vertexs->at(i)->z) * (int)dstPant);
-        y = ((vertexs->at(i)->y * 0.2) / vertexs->at(i)->z) * (int)dstPant;
         
-        if(x < 500 && y < 500 && x >= 0 && y >= 0)
-            image->setPixel(Color(255,255,255), x, y);
+        //vaux = *o.model * vaux;
+        vaux = *model * vaux;
+        vaux.printVector();
+        x = (vaux.x/vaux.z) * dstPant;
+        y = (vaux.y/vaux.z) * dstPant;
+        
+        if(x < 500 && y < 500 && x >= 0 && y >= 0){
+            if(i==4)
+                image->setPixel(Color(255,0,0), x, y);
+            else
+                image->setPixel(Color(255,255,255), x, y);
+        }
         
         std::cout << "x: " << x << " y: " << y << std::endl;
     }
     
-    image->saveTGA("/Users/danibarca/Desktop/result.tga");
+    image->saveTGA("/Users/danibarca/Desktop/result1010.tga");
 }

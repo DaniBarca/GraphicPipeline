@@ -61,5 +61,7 @@ bool Mesh::parseFile(std::string dir){
         polygons->push_back(auxb);
     }
     
+    std::cout << "------------------------"   << std::endl;
+    
     return true;
 }

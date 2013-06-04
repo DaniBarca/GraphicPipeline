@@ -18,7 +18,11 @@ float Vector::mod(){ return sqrt(x*x + y*y + z*z); }
 
 void Vector::norm(){
     Vector a;
-    a = (*this)/mod();
+    float module = mod();
+    
+    a.x = x/module;
+    a.y = y/module;
+    a.z = z/module;
     
     this->x = a.x; 
     this->y = a.y;
@@ -35,6 +39,7 @@ float Vector::dist(Vector b){
 
 //-----------Operators
 
+Vector operator *(const Vector& a, const Vector& b){return Vector(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);}
 Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }
 Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
 Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
@@ -96,6 +101,7 @@ Vector Matrix::rotateVector(Vector v){
 	temp.m[3] = 0.0;
 	temp.m[7] = 0.0;
 	temp.m[11] = 0.0;
+    
 	return temp * v;
 }
 
@@ -107,11 +113,11 @@ void Matrix::setTraslationMatrix(float x, float y, float z){
     m[11] = z;
 }
 
-//asigna una rotación
+//asigna una rotacion
 void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 {
 	clean();
-	Vector axis_n = axis;
+	/*Vector axis_n = axis;
 	axis_n.norm();
     
 	float c = cos( angle_in_rad );
@@ -130,6 +136,40 @@ void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 	m[6] = t * axis.y * axis.z + s * axis.x;
 	m[10]= t * axis.z * axis.z + c;
     
+     m[15] = 1.0f;
+     */
+    
+    Matrix rx, ry, rz;
+    rx = Matrix();
+    ry = Matrix();
+    rz = Matrix();
+    
+    rx.setIdentity();
+    ry.setIdentity();
+    rz.setIdentity();
+    
+    if(axis.x == 1){
+        rx.m[5] = cos(angle_in_rad);
+        rx.m[6] = -sin(angle_in_rad);
+        rx.m[9] = sin(angle_in_rad);
+        rx.m[10]= cos(angle_in_rad);
+    }
+    
+    if(axis.y == 1){
+        ry.m[0] = cos(angle_in_rad);
+        ry.m[2] = sin(angle_in_rad);
+        ry.m[8] =-sin(angle_in_rad);
+        ry.m[10]= cos(angle_in_rad);
+    }
+    
+    if(axis.z == 1){
+        ry.m[0] = cos(angle_in_rad);
+        ry.m[1] =-sin(angle_in_rad);
+        ry.m[4] = sin(angle_in_rad);
+        ry.m[5]= cos(angle_in_rad);
+    }
+    
+    copy(rx * ry * rz);
 	m[15]= 1.0f;
 }
 
