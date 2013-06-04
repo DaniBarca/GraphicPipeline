@@ -55,11 +55,20 @@ void Camera::render(Object o){
     std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
 
     Image *image = new Image(plane.width, plane.height);
-    double dstPant;
+    image->setBlack();
+    
+    double dstPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);;
     int x,y;
     for(int i = 0; i < vertexs->size(); ++i){
-        dstPant =  (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
-        x = (vertexs->at(i)->x / vertexs->at(i)->z) * dstPant;
-        y = (vertexs->at(i)->y / vertexs->at(i)->z) * dstPant;
+        
+        x = (int)(((vertexs->at(i)->x * 0.2) / vertexs->at(i)->z) * (int)dstPant);
+        y = ((vertexs->at(i)->y * 0.2) / vertexs->at(i)->z) * (int)dstPant;
+        
+        if(x < 500 && y < 500 && x >= 0 && y >= 0)
+            image->setPixel(Color(255,255,255), x, y);
+        
+        std::cout << "x: " << x << " y: " << y << std::endl;
     }
+    
+    image->saveTGA("/Users/danibarca/Desktop/result.tga");
 }
