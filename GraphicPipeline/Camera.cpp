@@ -54,7 +54,7 @@ void Camera::setUVN(){
 void Camera::render(Object o){
     std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
 
-    Image *image = new Image();
+    Image *image = new Image(plane.width, plane.height);
     double dstPant;
     int x,y;
     for(int i = 0; i < vertexs->size(); ++i){
