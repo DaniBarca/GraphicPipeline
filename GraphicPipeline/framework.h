@@ -12,6 +12,7 @@
 #include <iostream>
 #include <math.h>
 
+#define PI      3.1415926536
 #define DEG2RAD 0.01745329252
 #define RAD2DEG 57.295779513
 #define DEGTORAD(d) d*DEG2RAD
