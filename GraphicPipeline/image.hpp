@@ -229,7 +229,7 @@ public:
 
 		TGAInfo* tgainfo = new TGAInfo;
     
-		tgainfo->width = header[1] * 256 + header[0];
+		tgainfo->width  = header[1] * 256 + header[0];
 		tgainfo->height = header[3] * 256 + header[2];
     
 		if (tgainfo->width <= 0 || tgainfo->height <= 0 || (header[4] != 24 && header[4] != 32))

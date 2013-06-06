@@ -15,7 +15,7 @@
 #include "Mesh.h"
 #include "Polygon.hpp"
 #include "image.hpp"
-#define DISTPLANEC 2
+#define DISTPLANEC 5
 
 
 class Camera{

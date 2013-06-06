@@ -40,12 +40,11 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     plane.center = position + N*DISTPLANEC;
     plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
     
-    /*N.printVector();
-    V.printVector();
-    U.printVector();*/
+    model->printMatrix();
     
     
-    FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
+    //FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
+    FOV  = 0.838;
 }
 
 //Actualizar la matriz de vectores de la cámara
@@ -66,15 +65,20 @@ void Camera::render(Object o){
     int x,y;
     Vector vaux;
     
+    std::cout << "--------------" << std::endl;
+    
     for(int i = 0; i < vertexs->size(); ++i){
         vaux = *vertexs->at(i);
         
-        
         //vaux = *o.model * vaux;
         vaux = *model * vaux;
+        
         vaux.printVector();
+        
         x = (vaux.x/vaux.z) * dstPant;
         y = (vaux.y/vaux.z) * dstPant;
+        
+        std::cout << "x: " << x << " y: " << y << std::endl;
         
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
             if(i==4)
@@ -83,7 +87,7 @@ void Camera::render(Object o){
                 image->setPixel(Color(255,255,255), x, y);
         }
         
-        std::cout << "x: " << x << " y: " << y << std::endl;
+        
     }
     
     image->saveTGA("/Users/danibarca/Desktop/result1010.tga");

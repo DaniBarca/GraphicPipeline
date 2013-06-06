@@ -39,7 +39,7 @@ float Vector::dist(Vector b){
 
 //-----------Operators
 
-Vector operator *(const Vector& a, const Vector& b){return Vector(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);}
+Vector operator *(const Vector& a, const Vector& b){ return Vector(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);}
 Vector operator +(const Vector& a, const Vector& b){ return Vector(a.x+b.x, a.y+b.y, a.z+b.z); }
 Vector operator -(const Vector& a, const Vector& b){ return Vector(a.x-b.x, a.y-b.y, a.z-b.z); }
 Vector operator /(const Vector& a, const float&  b){ return Vector(a.x/b,   a.y/b,   a.z/b);   }
@@ -69,12 +69,12 @@ void Matrix::clean(){
 
 //pone un numero en esa posicion
 void Matrix::set(int i, int j, float stuff){
-    m[j*4 + i] = stuff;
+    m[i*4 + j] = stuff;
 }
 
 //coger numero de la matriz en esa posición
 float Matrix::get(int i, int j) const{
-    return m[j*4 + i];
+    return m[i*4 + j];
 }
 
 //asignamos unos valores en esas posiciones de la matriz
