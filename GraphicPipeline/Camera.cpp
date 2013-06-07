@@ -9,7 +9,6 @@
 #include "Camera.h"
 
 Camera::Camera(Vector position, Vector lookat, int width, int height){
-    Matrix r = Matrix(); 
     model = new Matrix(); //posicion de la camara
     model->setPosition(-position.x, -position.y, -position.z);
     
@@ -19,20 +18,17 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     N = lookat - position;
     N.norm();
     
-    V = N;
-    U = N;
-    
-    //Rotamos V 90 grados hacia arriba
-    r.setRotationMatrix(DEGTORAD(90), Vector(1,0,0));
+    V = N * Vector(0,1,0);
     U = N * Vector(0,0,1);
     
-    //Rotamos U 90 grados hacia la derecha
-    r.clean();
-    r.setRotationMatrix(DEGTORAD(90), Vector(0,0,1));
-    V = U * N;
+    
+    
+    //U.printVector();
+    //V.printVector();
+    //N.printVector();
     
     //Aplicamos U, V, N a la matriz:
-    setUVN();
+    setCUVN();
     
     //Generamos la información del plano
     plane.width  = width;
@@ -40,18 +36,41 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     plane.center = position + N*DISTPLANEC;
     plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
     
-    model->printMatrix();
+    std::cout << "Matrix: "<<std::endl;
+    //model->printMatrix();
     
-    
-    //FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
-    FOV  = 0.838;
+    FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
+    //FOV  = 0.838;
 }
 
 //Actualizar la matriz de vectores de la cámara
-void Camera::setUVN(){    
-    model->m[0] = U.x; model->m[1] = U.y; model->m[2] = U.z;
-    model->m[4] = V.x; model->m[5] = V.y; model->m[6] = V.z;
-    model->m[8] = N.x; model->m[9] = N.y; model->m[10]= N.z;
+void Camera::setCUVN(){
+    Matrix r = Matrix();
+    Matrix t = Matrix();
+    Matrix rt= Matrix();
+    
+    t.setIdentity();
+    r.setIdentity();
+    
+    t.m[3] = -C.x;
+    t.m[7] = -C.y;
+    t.m[11]= -C.z;
+    
+    r.m[0] = U.x; r.m[1] = U.y; r.m[2] = U.z;
+    r.m[4] = V.x; r.m[5] = V.y; r.m[6] = V.z;
+    r.m[8] = N.x; r.m[9] = N.y; r.m[10]= N.z;
+    
+    std::cout<<"---------"<<std::endl;
+    r.printMatrix();
+        std::cout<<"---------"<<std::endl;
+    t.printMatrix();
+        std::cout<<"---------"<<std::endl;
+    
+    rt = r*t;
+    
+    rt.printMatrix();
+    
+    model->copy(rt);
 }
 
 //Generar la imagen en el plano 2D
@@ -61,25 +80,36 @@ void Camera::render(Object o){
     Image *image = new Image(plane.width, plane.height);
     image->setBlack();
     
-    float dstPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
+    //float distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
+    //float distPant = (plane.height*0.5)/tan(DEGTORAD(FOV * 0.5));
     int x,y;
+    float fx, fy, w;
     Vector vaux;
     
     std::cout << "--------------" << std::endl;
     
     for(int i = 0; i < vertexs->size(); ++i){
-        vaux = *vertexs->at(i);
+        vaux = *vertexs->at(i);                 //Obtenemos el vertice i
         
-        //vaux = *o.model * vaux;
-        vaux = *model * vaux;
+        vaux = *o.model * vaux;                 //Lo multiplicamos por la matriz del objeto
+        vaux = *model * vaux;                   //Lo multiplicamos por la matriz de la camara
         
+
         vaux.printVector();
         
-        x = (vaux.x/vaux.z) * dstPant;
-        y = (vaux.y/vaux.z) * dstPant;
+        w = vaux.z * IDISTPLANEC;               //Obtenemos la w
+        std::cout << "w: " << w << std::endl;
+        
+        fx = (vaux.x/w) * plane.width *0.5;     //Obtenemos x
+        fy = (vaux.y/w) * plane.height*0.5;     //Obtenemos y
+        
+        //Y los redondeamos:
+        x  = (int)((fx < 0) ? fx - 0.5 : fx + 0.5);
+        y  = (int)((fy < 0) ? fy - 0.5 : fy + 0.5);
         
         std::cout << "x: " << x << " y: " << y << std::endl;
         
+        //Por último, si están dentro del viewPlane, los dibujamos
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
             if(i==4)
                 image->setPixel(Color(255,0,0), x, y);

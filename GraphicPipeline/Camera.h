@@ -15,7 +15,9 @@
 #include "Mesh.h"
 #include "Polygon.hpp"
 #include "image.hpp"
-#define DISTPLANEC 5
+
+#define DISTPLANEC  5
+#define IDISTPLANEC 1/DISTPLANEC
 
 
 class Camera{
@@ -37,7 +39,7 @@ public:
     double FOV;
     
     Camera(Vector position, Vector lookat, int width = 500, int height = 500);
-    void setUVN();
+    void setCUVN();
     
     void render(Object o);
 };
