@@ -132,6 +132,7 @@ void Camera::rasterizePolygons(Object o){
 
 void Camera::rasterize(Vector start, Vector end){
     
+    //Si la línea es completamente horizontal
     if(start.x == end.x){
         int st = start.y, en = end.y;
         
@@ -147,6 +148,7 @@ void Camera::rasterize(Vector start, Vector end){
         return;
     }
     
+    //Si la línea es completamente vertical
     if(start.y == end.y){
         int st = start.x, en = end.x;
         
@@ -161,12 +163,12 @@ void Camera::rasterize(Vector start, Vector end){
         return;
     }
     
+    
     if(start.y > end.y){
         Vector aux = end;
         end = start;
         start = aux;
     }
-    
     
     float xi = start.x;
     float xf = -0.5;
