@@ -11,6 +11,9 @@
 Camera::Camera(Vector position, Vector lookat, int width, int height){
     setCamera(position, lookat);
     
+    output = new Image(width, height);
+    output->setBlack();
+    
     //Generamos la información del plano
     //Si calculamos ahora la mitad de la altura y el ancho, no tendremos que hacerlo en cada render
     plane.width  = width;
@@ -63,16 +66,16 @@ void Camera::setCUVN(){
 
 //Generar la imagen en el plano 2D
 void Camera::render(Object o){
-    std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
+    renderVertexs(o);
+    output->saveTGA("/Users/danibarca/Desktop/result1010.tga");
+}
 
-    Image *image = new Image(plane.width, plane.height);
-    image->setBlack();
+void Camera::renderVertexs(Object o){
+    std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
     
     int x,y;
     float fx, fy, w;
     Vector vaux;
-    
-    std::cout << "--------------" << std::endl;
     
     for(int i = 0; i < vertexs->size(); ++i){
         vaux = *vertexs->at(i);                 //Obtenemos el vertice i
@@ -82,7 +85,7 @@ void Camera::render(Object o){
         
         w = vaux.z * IDISTPLANEC;               //Obtenemos la w
         
-        fx = (vaux.x/w)*distPant+ plane.half_width;     //Obtenemos x
+        fx = (vaux.x/w)*distPant+ plane.half_width;      //Obtenemos x
         fy = (vaux.y/w)*distPant+ plane.half_height;     //Obtenemos y
         
         //Y los redondeamos:
@@ -94,13 +97,9 @@ void Camera::render(Object o){
         //Por último, si están dentro del viewPlane, los dibujamos
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
             if(i==4)
-                image->setPixel(Color(255,0,0), x, y);
+                output->setPixel(Color(255,0,0), x, y);
             else
-                image->setPixel(Color(255,255,255), x, y);
+                output->setPixel(Color(255,255,255), x, y);
         }
-        
-        
     }
-    
-    image->saveTGA("/Users/danibarca/Desktop/result1010.tga");
 }

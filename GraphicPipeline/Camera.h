@@ -28,7 +28,10 @@ class Camera{
         int half_height;
     }plane;
     
-    void setCUVN();
+    Image* output;
+    
+    void  setCUVN();
+    void  renderVertexs(Object o);
 public:
     Matrix* model;
     
