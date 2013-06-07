@@ -67,6 +67,8 @@ void Camera::setCUVN(){
 //Generar la imagen en el plano 2D
 void Camera::render(Object o){
     renderVertexs(o);
+    rasterizePolygons(o);
+    
     output->saveTGA("/Users/danibarca/Desktop/result1010.tga");
 }
 
@@ -97,7 +99,7 @@ void Camera::renderVertexs(Object o){
         auxPosition.x = x;
         auxPosition.y = y;
         
-        o.mesh->positions->push_back(auxPosition);
+        o.mesh->positions->at(i) = auxPosition;
         
         //Por último, si están dentro del viewPlane, los dibujamos
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
@@ -109,13 +111,79 @@ void Camera::renderVertexs(Object o){
     }
 }
 
+void Camera::rasterizePolygons(Object o){
+    std::vector<Polygon*>* polygons = o.getMesh()->getPolygons();
+    std::vector<scrPosition>* positions = o.getMesh()->positions;
+    std::vector<int>* vaux;
+    
+    Polygon paux;
+    int j;
+    for(int i = 0; i < polygons->size(); ++i){
+        for(j = 0; j < polygons->at(i)->vertexs->size()-1 ; ++j){
+            vaux = polygons->at(i)->vertexs;
+            rasterize(Vector(positions->at(vaux->at(j)).x, positions->at(vaux->at(j)).y), Vector(positions->at(vaux->at(j+1)).x, positions->at(vaux->at(j+1)).y));
+            output->saveTGA("/Users/danibarca/Desktop/output.tga");
+
+        }
+        rasterize(Vector(positions->at(vaux->at(j)).x, positions->at(vaux->at(j)).y), Vector(positions->at(vaux->at(0)).x, positions->at(vaux->at(0)).y));
+        output->saveTGA("/Users/danibarca/Desktop/output.tga");
+    }
+}
+
 void Camera::rasterize(Vector start, Vector end){
-    float x = start.x;
-    float m = (end.x - start.x)/(end.y - start.y);
+    
+    if(start.x == end.x){
+        int st = start.y, en = end.y;
+        
+        if(start.y > end.y){
+            st = end.y;
+            en = start.y;
+        }
+        
+        for(;st < en; ++st){
+            output->setPixel(Color(255,255,255), start.x, st);
+            //output->saveTGA("Users/danibarca/output.tga");
+        }
+        return;
+    }
+    
+    if(start.y == end.y){
+        int st = start.x, en = end.x;
+        
+        if(start.x > end.x){
+            st = end.x;
+            en = start.x;
+        }
+        
+        for(;st < en; ++st){
+            output->setPixel(Color(255,255,255), st, start.y);
+        }
+        return;
+    }
+    
+    if(start.y > end.y){
+        Vector aux = end;
+        end = start;
+        start = aux;
+    }
+    
+    
+    float xi = start.x;
+    float xf = -0.5;
+    
+    int   mi = floor((end.x- start.x) / (end.y - start.y));
+    float mf = (end.x - start.x) / (end.y - start.y) - mi;
     
     for(int y = start.y; y < end.y; ++y){
-        output->setPixel(Color(255,255,255), round (x), y);
-        x += m;
+        output->setPixel(Color(255,255,255), xi, y);
+        
+        xi += mi;
+        xf += mf;
+        
+        if(xf > 0.0){
+            xi += 1;
+            xf -= 1;
+        }
     }
 }
 

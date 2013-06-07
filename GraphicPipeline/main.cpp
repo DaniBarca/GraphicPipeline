@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
     //Leer archivo
     std::string dir = argv[1];
     Object o = Object(dir, Vector(0,0,0));
-    Camera *c = new Camera(Vector(7,0,3), Vector(0,0,0), WIDTH, HEIGHT);
+    Camera *c = new Camera(Vector(10,3,6), Vector(0,0,0), WIDTH, HEIGHT);
     c->render(o);
     
 	system("pause");

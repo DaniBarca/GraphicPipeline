@@ -30,6 +30,7 @@ public:
     bool parseFile(std::string dir);
     
     std::vector<Vector*>* getVertexs(){ return vertexs; }
+    std::vector<Polygon*>* getPolygons(){ return polygons; }
 };
 
 #endif /* defined(__GraphicPipeline__Mesh__) */
