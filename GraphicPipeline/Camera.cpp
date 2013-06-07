@@ -78,7 +78,7 @@ void Camera::render(Object o){
     Image *image = new Image(plane.width, plane.height);
     image->setBlack();
     
-    //float distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
+    float distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
     //float distPant = (plane.height*0.5)/tan(DEGTORAD(FOV * 0.5));
     int x,y;
     float fx, fy, w;
@@ -95,8 +95,8 @@ void Camera::render(Object o){
         w = vaux.z * IDISTPLANEC;               //Obtenemos la w
         std::cout << "w: " << w << std::endl;
         
-        fx = (vaux.x/w) * plane.width *0.5;     //Obtenemos x
-        fy = (vaux.y/w) * plane.height*0.5;     //Obtenemos y
+        fx = (vaux.x/w)*distPant+ plane.width * 0.5;     //Obtenemos x
+        fy = (vaux.y/w)*distPant+ plane.height* 0.5;     //Obtenemos y
         
         //Y los redondeamos:
         x  = (int)((fx < 0) ? fx - 0.5 : fx + 0.5);

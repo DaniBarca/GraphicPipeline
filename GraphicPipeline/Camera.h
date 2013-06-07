@@ -16,7 +16,7 @@
 #include "Polygon.hpp"
 #include "image.hpp"
 
-#define DISTPLANEC  5
+#define DISTPLANEC  3
 #define IDISTPLANEC 1/DISTPLANEC
 
 
