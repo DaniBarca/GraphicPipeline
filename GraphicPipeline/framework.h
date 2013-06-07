@@ -18,6 +18,8 @@
 #define DEGTORAD(d) d*DEG2RAD
 #define RADTODEG(r) r*RAD2DEG
 
+int round(float x){ return (int)((x < 0) ? x - 0.5 : x + 0.5); }
+
 class Vector{
 public:
     struct{
