@@ -19,10 +19,13 @@ class Mesh{
     int nVertexs;
     int nPolygons;
     
-    std::vector<Vector*>*  vertexs;
-    std::vector<Polygon*>* polygons;
+
+    std::vector<Vector*>*      vertexs;
+    std::vector<Polygon*>*     polygons;
     
 public:
+    std::vector<scrPosition>* positions; //Las posiciones 2D de los vértices
+    
     Mesh(std::string dir);
     bool parseFile(std::string dir);
     

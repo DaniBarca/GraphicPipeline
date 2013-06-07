@@ -11,9 +11,15 @@
 Mesh::Mesh(std::string dir){
     vertexs = new std::vector<Vector*>();
     polygons= new std::vector<Polygon*>();
+    positions=new std::vector<scrPosition>();
+    
+    scrPosition aux; aux.x = 0; aux.y = 0;
     
     if(!parseFile(dir))
         std::cout << "No se ha podido leer el fichero" << std::endl;
+    
+    for(int i = 0; i < vertexs->size(); ++i)
+        positions->push_back(aux);
 }
 
 bool Mesh::parseFile(std::string dir){
@@ -52,7 +58,7 @@ bool Mesh::parseFile(std::string dir){
             //pero en el vector son a partir de 0, así que restamos 1
             num = parser.getint() - 1;
             
-            auxb->vertexs->push_back(vertexs->at(num));
+            auxb->vertexs->push_back(num);
             
             std::cout << num+1 << " ";
         }
