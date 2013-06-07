@@ -12,14 +12,14 @@
 #include "framework.h"
 #include <vector>
 
-class Polygon{
+class Polygon{    
 public:
     int nSides;
-    std::vector<Vector*>* vertexs;
+    std::vector<int>* vertexs;
     
     Polygon(){
         nSides = 0;
-        vertexs = new std::vector<Vector*>();
+        vertexs = new std::vector<int>();
     }
 };
 
