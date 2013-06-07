@@ -24,10 +24,11 @@ class Camera{
     struct plane{
         int width;
         int height;
-        Vector center;
-        Vector corner;
+        int half_width;
+        int half_height;
     }plane;
     
+    void setCUVN();
 public:
     Matrix* model;
     
@@ -36,10 +37,12 @@ public:
     Vector V;
     Vector C;
     
-    double FOV;
+    float FOV;
+    float distPant;
     
     Camera(Vector position, Vector lookat, int width = 500, int height = 500);
-    void setCUVN();
+    void setCamera(Vector position, Vector lookat);
+
     
     void render(Object o);
 };

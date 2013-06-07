@@ -9,8 +9,21 @@
 #include "Camera.h"
 
 Camera::Camera(Vector position, Vector lookat, int width, int height){
+    setCamera(position, lookat);
+    
+    //Generamos la información del plano
+    //Si calculamos ahora la mitad de la altura y el ancho, no tendremos que hacerlo en cada render
+    plane.width  = width;
+    plane.height = height;
+    plane.half_width  = width  * 0.5;
+    plane.half_height = height * 0.5;
+    
+    FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
+    distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
+}
+
+void Camera::setCamera(Vector position, Vector lookat){
     model = new Matrix(); //posicion de la camara
-    model->setPosition(-position.x, -position.y, -position.z);
     
     C = position; //vector con coordenadas x,y,z de la posicion de la camara
     
@@ -21,24 +34,8 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     V = N * Vector(0,1,0);
     U = N * Vector(0,0,1);
     
-    //U.printVector();
-    //V.printVector();
-    //N.printVector();
-    
     //Aplicamos U, V, N a la matriz:
     setCUVN();
-    
-    //Generamos la información del plano
-    plane.width  = width;
-    plane.height = height;
-    plane.center = position + N*DISTPLANEC;
-    plane.corner = plane.center - U*(width*0.5) + V*(height*0.5);
-    
-    std::cout << "Matrix: "<<std::endl;
-    //model->printMatrix();
-    
-    FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
-    //FOV  = 0.838;
 }
 
 //Actualizar la matriz de vectores de la cámara
@@ -50,24 +47,17 @@ void Camera::setCUVN(){
     t.setIdentity();
     r.setIdentity();
     
+    //Matriz de traslación de la cámara:
     t.m[3] = -C.x;
     t.m[7] = -C.y;
     t.m[11]= -C.z;
     
+    //Matriz de rotación de la cámara:
     r.m[0] = U.x; r.m[1] = U.y; r.m[2] = U.z;
     r.m[4] = V.x; r.m[5] = V.y; r.m[6] = V.z;
     r.m[8] = N.x; r.m[9] = N.y; r.m[10]= N.z;
     
-    std::cout<<"---------"<<std::endl;
-    r.printMatrix();
-        std::cout<<"---------"<<std::endl;
-    t.printMatrix();
-        std::cout<<"---------"<<std::endl;
-    
     rt = r*t;
-    
-    rt.printMatrix();
-    
     model->copy(rt);
 }
 
@@ -78,8 +68,6 @@ void Camera::render(Object o){
     Image *image = new Image(plane.width, plane.height);
     image->setBlack();
     
-    float distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
-    //float distPant = (plane.height*0.5)/tan(DEGTORAD(FOV * 0.5));
     int x,y;
     float fx, fy, w;
     Vector vaux;
@@ -93,10 +81,9 @@ void Camera::render(Object o){
         vaux = *model * vaux;                   //Lo multiplicamos por la matriz de la camara
         
         w = vaux.z * IDISTPLANEC;               //Obtenemos la w
-        std::cout << "w: " << w << std::endl;
         
-        fx = (vaux.x/w)*distPant+ plane.width * 0.5;     //Obtenemos x
-        fy = (vaux.y/w)*distPant+ plane.height* 0.5;     //Obtenemos y
+        fx = (vaux.x/w)*distPant+ plane.half_width;     //Obtenemos x
+        fy = (vaux.y/w)*distPant+ plane.half_height;     //Obtenemos y
         
         //Y los redondeamos:
         x  = (int)((fx < 0) ? fx - 0.5 : fx + 0.5);
