@@ -15,10 +15,8 @@
 #include "Mesh.h"
 
 class Object{
-private:
-    Mesh* mesh;
-    
 public:
+    Mesh* mesh;
     Matrix* model;
     Object(std::string dir, Vector position);
     Mesh* getMesh(){ return mesh; }
