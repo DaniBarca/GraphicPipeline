@@ -89,10 +89,8 @@ void Camera::renderVertexs(Object o){
         fy = (vaux.y/w)*distPant+ plane.half_height;     //Obtenemos y
         
         //Y los redondeamos:
-        x  = (int)((fx < 0) ? fx - 0.5 : fx + 0.5);
-        y  = (int)((fy < 0) ? fy - 0.5 : fy + 0.5);
-        
-        std::cout << "x: " << x << " y: " << y << std::endl;
+        x  = round(fx);
+        y  = round(fy);
         
         //Por último, si están dentro del viewPlane, los dibujamos
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
@@ -103,3 +101,15 @@ void Camera::renderVertexs(Object o){
         }
     }
 }
+
+void Camera::rasterize(Vector start, Vector end){
+    float x   = start.x;
+    float m = (end.x - start.x)/(end.y - start.y);
+    
+    for(int y = start.y; y < end.y; ++y){
+        output->setPixel(Color(255,255,255), round (x), y);
+        x += m;
+    }
+}
+
+

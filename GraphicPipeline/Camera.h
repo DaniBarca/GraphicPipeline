@@ -30,8 +30,9 @@ class Camera{
     
     Image* output;
     
-    void  setCUVN();
-    void  renderVertexs(Object o);
+    void  setCUVN();                        //Coloca los vectores u, v y n
+    void  renderVertexs(Object o);          //Renderiza los vertices
+    void  rasterize(Vector a, Vector b);    //Dibuja una línea entre a y b (son coordenadas 2D, aunque la clase Vector tenga una 3a componente, no la usaremos).
 public:
     Matrix* model;
     
@@ -43,8 +44,8 @@ public:
     float FOV;
     float distPant;
     
-    Camera(Vector position, Vector lookat, int width = 500, int height = 500);
-    void setCamera(Vector position, Vector lookat);
+    Camera(Vector position, Vector lookat, int width = 500, int height = 500); //Constructor
+    void setCamera(Vector start, Vector end);                                  //Coloca la cámara
 
     
     void render(Object o);
