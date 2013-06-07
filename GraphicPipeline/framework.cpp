@@ -88,6 +88,16 @@ void Matrix::setPosition(Vector position){
     setPosition(position.x,position.y,position.z);
 }
 
+void Matrix::setRotation(float angle, Vector axis){
+    Matrix r  = Matrix();
+    Matrix aux= Matrix();
+    aux.copy(*this);
+    r.setRotationMatrix(angle, axis);
+    aux = r * aux;
+    
+    copy(aux);
+}
+
 Vector Matrix::traslateVector(Vector v){
     v.x += m[3];
     v.y += m[7];
@@ -117,7 +127,7 @@ void Matrix::setTraslationMatrix(float x, float y, float z){
 void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 {
 	clean();
-	/*Vector axis_n = axis;
+	Vector axis_n = axis;
 	axis_n.norm();
     
 	float c = cos( angle_in_rad );
@@ -137,40 +147,6 @@ void Matrix::setRotationMatrix( float angle_in_rad, const Vector axis  )
 	m[10]= t * axis.z * axis.z + c;
     
      m[15] = 1.0f;
-     */
-    
-    Matrix rx, ry, rz;
-    rx = Matrix();
-    ry = Matrix();
-    rz = Matrix();
-    
-    rx.setIdentity();
-    ry.setIdentity();
-    rz.setIdentity();
-    
-    if(axis.x == 1){
-        rx.m[5] = cos(angle_in_rad);
-        rx.m[6] = -sin(angle_in_rad);
-        rx.m[9] = sin(angle_in_rad);
-        rx.m[10]= cos(angle_in_rad);
-    }
-    
-    if(axis.y == 1){
-        ry.m[0] = cos(angle_in_rad);
-        ry.m[2] = sin(angle_in_rad);
-        ry.m[8] =-sin(angle_in_rad);
-        ry.m[10]= cos(angle_in_rad);
-    }
-    
-    if(axis.z == 1){
-        ry.m[0] = cos(angle_in_rad);
-        ry.m[1] =-sin(angle_in_rad);
-        ry.m[4] = sin(angle_in_rad);
-        ry.m[5]= cos(angle_in_rad);
-    }
-    
-    copy(rx * ry * rz);
-	m[15]= 1.0f;
 }
 
 
@@ -251,10 +227,13 @@ bool Matrix::inverse()
 
 Matrix operator *(const Matrix& a, const Matrix& b){
     Matrix c; c.clean();
+    float temp;
     for(int i = 0; i < 4; ++i){
         for(int j = 0; j < 4; ++j){
+            temp = 0;
             for(int t = 0; t < 4; ++t){
-                c.set(i,j, c.get(i,j) + a.get(i,t) * b.get(t,i));
+                temp += a.get(i,t) * b.get(t,j);
+                c.set(i,j,temp);
             }
         }
     }

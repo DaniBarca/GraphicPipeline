@@ -77,6 +77,7 @@ public:
     
     void setPosition(float x, float y, float z);
     void setPosition(Vector position);
+    void setRotation(float angle, Vector axis);
     
     Vector traslateVector(Vector v);
     
