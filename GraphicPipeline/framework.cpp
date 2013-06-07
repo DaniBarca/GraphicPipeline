@@ -8,6 +8,8 @@
 
 #include "framework.h"
 
+int round(float x){ return (int)((x < 0) ? x - 0.5 : x + 0.5); }
+
 Vector::Vector(float x, float y, float z){
     this->x = x;
     this->y = y;
