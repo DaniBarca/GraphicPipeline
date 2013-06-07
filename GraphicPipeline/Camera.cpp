@@ -21,8 +21,6 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     V = N * Vector(0,1,0);
     U = N * Vector(0,0,1);
     
-    
-    
     //U.printVector();
     //V.printVector();
     //N.printVector();
@@ -93,9 +91,6 @@ void Camera::render(Object o){
         
         vaux = *o.model * vaux;                 //Lo multiplicamos por la matriz del objeto
         vaux = *model * vaux;                   //Lo multiplicamos por la matriz de la camara
-        
-
-        vaux.printVector();
         
         w = vaux.z * IDISTPLANEC;               //Obtenemos la w
         std::cout << "w: " << w << std::endl;
