@@ -77,6 +77,8 @@ void Camera::renderVertexs(Object o){
     float fx, fy, w;
     Vector vaux;
     
+    scrPosition auxPosition;
+    
     for(int i = 0; i < vertexs->size(); ++i){
         vaux = *vertexs->at(i);                 //Obtenemos el vertice i
         
@@ -85,12 +87,17 @@ void Camera::renderVertexs(Object o){
         
         w = vaux.z * IDISTPLANEC;               //Obtenemos la w
         
-        fx = (vaux.x/w)*distPant+ plane.half_width;      //Obtenemos x
-        fy = (vaux.y/w)*distPant+ plane.half_height;     //Obtenemos y
+        fx = (vaux.x/w)*distPant + plane.half_width;      //Obtenemos x
+        fy = (vaux.y/w)*distPant + plane.half_height;     //Obtenemos y
         
         //Y los redondeamos:
         x  = round(fx);
         y  = round(fy);
+        
+        auxPosition.x = x;
+        auxPosition.y = y;
+        
+        o.mesh->positions->push_back(auxPosition);
         
         //Por último, si están dentro del viewPlane, los dibujamos
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
@@ -103,7 +110,7 @@ void Camera::renderVertexs(Object o){
 }
 
 void Camera::rasterize(Vector start, Vector end){
-    float x   = start.x;
+    float x = start.x;
     float m = (end.x - start.x)/(end.y - start.y);
     
     for(int y = start.y; y < end.y; ++y){

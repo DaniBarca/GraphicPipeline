@@ -33,6 +33,7 @@ class Camera{
     void  setCUVN();                        //Coloca los vectores u, v y n
     void  renderVertexs(Object o);          //Renderiza los vertices
     void  rasterize(Vector a, Vector b);    //Dibuja una línea entre a y b (son coordenadas 2D, aunque la clase Vector tenga una 3a componente, no la usaremos).
+    void  rasterizePolygons(Object o);      //Rasterizamos las líneas entre los vértices
 public:
     Matrix* model;
     
