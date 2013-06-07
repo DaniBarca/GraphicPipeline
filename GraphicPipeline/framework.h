@@ -20,6 +20,11 @@
 
 int round(float x){ return (int)((x < 0) ? x - 0.5 : x + 0.5); }
 
+typedef struct{
+    int x;
+    int y;
+}scrPosition;
+
 class Vector{
 public:
     struct{
