@@ -118,15 +118,19 @@ void Camera::rasterizePolygons(Object o){
     
     Polygon paux;
     int j;
+    
+    //Puede ser complicado de leer por la complejidad con la que guardamos los datos
+    //En resumen, lo que hacemos es pasar las coordenadas de pantalla de los puntos que queremos rasterizar
     for(int i = 0; i < polygons->size(); ++i){
         for(j = 0; j < polygons->at(i)->vertexs->size()-1 ; ++j){
             vaux = polygons->at(i)->vertexs;
+            
+            //Rasterizamos el vertice j con el vertice j+1
             rasterize(Vector(positions->at(vaux->at(j)).x, positions->at(vaux->at(j)).y), Vector(positions->at(vaux->at(j+1)).x, positions->at(vaux->at(j+1)).y));
-            output->saveTGA("/Users/danibarca/Desktop/output.tga");
 
         }
+        //Rasterizamos el último vertice con el primero para cerrar el polígono
         rasterize(Vector(positions->at(vaux->at(j)).x, positions->at(vaux->at(j)).y), Vector(positions->at(vaux->at(0)).x, positions->at(vaux->at(0)).y));
-        output->saveTGA("/Users/danibarca/Desktop/output.tga");
     }
 }
 
@@ -139,8 +143,10 @@ void Camera::rasterize(Vector start, Vector end){
      *4) En el resto de casos, usamos el algoritmo de Swanson and Thayer del libro
      */
     
-    //Si la línea es completamente horizontal
+    //Si la línea es completamente vertical
     if(start.x == end.x){
+        if(start.x > plane.width || start.x < 0) return;
+        
         int st = start.y, en = end.y;
         
         if(start.y > end.y){
@@ -149,14 +155,16 @@ void Camera::rasterize(Vector start, Vector end){
         }
         
         for(;st < en; ++st){
-            output->setPixel(Color(255,255,255), start.x, st);
-            //output->saveTGA("Users/danibarca/output.tga");
+            if(st > 0 && st < plane.height)
+                output->setPixel(Color(255,255,255), start.x, st);
         }
         return;
     }
     
-    //Si la línea es completamente vertical
+    //Si la línea es completamente horizontal
     if(start.y == end.y){
+        if(start.y > plane.height || start.y < 0) return;
+        
         int st = start.x, en = end.x;
         
         if(start.x > end.x){
@@ -165,7 +173,8 @@ void Camera::rasterize(Vector start, Vector end){
         }
         
         for(;st < en; ++st){
-            output->setPixel(Color(255,255,255), st, start.y);
+            if(st > 0 && st < plane.width)
+                output->setPixel(Color(255,255,255), st, start.y);
         }
         return;
     }
@@ -177,6 +186,13 @@ void Camera::rasterize(Vector start, Vector end){
         start = aux;
     }
     
+    if(start.x < 0)
+        if(end.z < 0)
+            return;
+    if(start.x > plane.width)
+        if(end.x > plane.width)
+            return;
+    
     
     //Calculamos el ángulo respecto a la línea horizontal
     float pendiente = (start.y - end.y)/(start.x-end.x);
@@ -184,7 +200,6 @@ void Camera::rasterize(Vector start, Vector end){
     angulo = RADTODEG(angulo);
     
     if((angulo < 45 && angulo > 0)||(angulo > -45 && angulo < 0)){          //Si el ángulo es menor a 45º
-        std::cout  << std::endl;
         //Algoritmo midpoint, sólo funciona cuando el ángulo es < 45º
         
         if(angulo < 0){
@@ -213,16 +228,15 @@ void Camera::rasterize(Vector start, Vector end){
                 y++;
             }
             
-            if(angulo < 0)
+            if(angulo < 0 && y > 0 && y < plane.height)
                 output->setPixel(Color(255,255,255), (plane.half_width - (x-plane.half_width)), y);
-            else
+            else if(y > 0 && y < plane.height)
                 output->setPixel(Color(255,255,255), x, y);
         }
         return;
     }
     
     //Algoritmo 2
-     
     float xi = start.x;
     float xf = -0.5;
     
@@ -230,7 +244,8 @@ void Camera::rasterize(Vector start, Vector end){
     float mf = (end.x - start.x) / (end.y - start.y) - mi;
     
     for(int y = start.y; y < end.y; ++y){
-        output->setPixel(Color(255,255,255), xi, y);
+        if(y > 0 && y < plane.height)
+            output->setPixel(Color(255,255,255), xi, y);
         
         xi += mi;
         xf += mf;
