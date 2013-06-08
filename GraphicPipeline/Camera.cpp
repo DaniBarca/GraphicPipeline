@@ -131,6 +131,13 @@ void Camera::rasterizePolygons(Object o){
 }
 
 void Camera::rasterize(Vector start, Vector end){
+    /*Explicación:
+     *El método para rasterizar varía según el ángulo de la línea que tenemos que dibujar
+     *1) Miramos si es horizontal o vertical para usar el algoritmo básico si es así
+     *2) Nos aseguramos de que los algoritmos restantes recorran y de arriba a abajo cambiando start por end si hace falta (if(start.y > end.y)...)
+     *3) Miramos si el ángulo de la línea es inferior a +-45º para usar el algoritmo middle point si es así
+     *4) En el resto de casos, usamos el algoritmo de Swanson and Thayer del libro
+     */
     
     //Si la línea es completamente horizontal
     if(start.x == end.x){
@@ -163,13 +170,59 @@ void Camera::rasterize(Vector start, Vector end){
         return;
     }
     
-    
+    //Si start está por debajo de end, los intercambiamos
     if(start.y > end.y){
         Vector aux = end;
         end = start;
         start = aux;
     }
     
+    
+    //Calculamos el ángulo respecto a la línea horizontal
+    float pendiente = (start.y - end.y)/(start.x-end.x);
+    float angulo    = atan(pendiente);
+    angulo = RADTODEG(angulo);
+    
+    if((angulo < 45 && angulo > 0)||(angulo > -45 && angulo < 0)){          //Si el ángulo es menor a 45º
+        std::cout  << std::endl;
+        //Algoritmo midpoint, sólo funciona cuando el ángulo es < 45º
+        
+        if(angulo < 0){
+            start.x = (plane.half_width + (plane.half_width - start.x));
+            end.x   = (plane.half_width + (plane.half_width - end.x));
+        }
+        
+        int dx = end.x - start.x;
+        int dy = end.y - start.y;
+        int d  = 2*dy - dx;
+        
+        int incrE = 2*dy;
+        int incrNE= 2*(dy-dx);
+        
+        int x = start.x;
+        int y = start.y;
+        
+        while(x<end.x){
+            if(d <= 0){
+                d += incrE;
+                x++;
+            }
+            else{
+                d += incrNE;
+                x++;
+                y++;
+            }
+            
+            if(angulo < 0)
+                output->setPixel(Color(255,255,255), (plane.half_width - (x-plane.half_width)), y);
+            else
+                output->setPixel(Color(255,255,255), x, y);
+        }
+        return;
+    }
+    
+    //Algoritmo 2
+     
     float xi = start.x;
     float xf = -0.5;
     
@@ -188,5 +241,3 @@ void Camera::rasterize(Vector start, Vector end){
         }
     }
 }
-
-
