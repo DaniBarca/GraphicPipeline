@@ -21,6 +21,7 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     plane.half_width  = width  * 0.5;
     plane.half_height = height * 0.5;
     
+    //FOV es el ángulo que forma el punto C con los bordes de la pantalla.
     FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
     distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
 }
@@ -68,6 +69,11 @@ void Camera::setCUVN(){
 void Camera::render(Object o){
     renderVertexs(o);
     rasterizePolygons(o);
+    
+    /*//Este código es perfecto para testear el raster
+     for(int i = 10; i < plane.width-9; i+=10)
+        for(int j = 10; j < plane.height-9; j+=10)
+            rasterize(Vector(plane.half_width,plane.half_height), Vector(i,j));*/
     
     output->saveTGA("/Users/danibarca/Desktop/result1010.tga");
 }
@@ -196,8 +202,7 @@ void Camera::rasterize(Vector start, Vector end){
     
     //Calculamos el ángulo respecto a la línea horizontal
     float pendiente = (start.y - end.y)/(start.x-end.x);
-    float angulo    = atan(pendiente);
-    angulo = RADTODEG(angulo);
+    float angulo    = RADTODEG(atan(pendiente));
     
     if((angulo < 45 && angulo > 0)||(angulo > -45 && angulo < 0)){          //Si el ángulo es menor a 45º
         //Algoritmo midpoint, sólo funciona cuando el ángulo es < 45º
@@ -236,7 +241,7 @@ void Camera::rasterize(Vector start, Vector end){
         return;
     }
     
-    //Algoritmo 2
+    //Algoritmo de Swanson and Thayer
     float xi = start.x;
     float xf = -0.5;
     
