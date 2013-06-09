@@ -15,5 +15,5 @@ Object::Object(std::string dir, Vector position){
     
     model->setPosition(position);
     
-    //model->setRotation(DEGTORAD(0 % 360), Vector(0,0,1));
+    //model->setRotation(DEGTORAD(33 % 360), Vector(0,0,1));
 }

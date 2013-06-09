@@ -19,13 +19,14 @@ int main(int argc, const char * argv[])
 {
     //Image* img = new Image(WIDTH,HEIGHT);
     
-    if(argc != 2)
+    if(argc != 3)
         std::cout << "ERROR: número de argumentos incorrecto" << std::endl;
     
     //Leer archivo
     std::string dir = argv[1];
+    std::string outdir = argv[2];
     Object o = Object(dir, Vector(0,0,0));
-    Camera *c = new Camera(Vector(10,4,1), Vector(0,0,0), WIDTH, HEIGHT);
+    Camera *c = new Camera(Vector(10,4,1), Vector(0,0,0), outdir, WIDTH, HEIGHT);
     c->render(o);
     
 	system("pause");

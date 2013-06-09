@@ -70,6 +70,10 @@
             argument = "/Users/danibarca/Documents/Programas/GraphicPipeline/data/Conob.txt"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/danibarca/Desktop/output.tga"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

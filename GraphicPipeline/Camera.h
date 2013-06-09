@@ -28,7 +28,8 @@ class Camera{
         int half_height;
     }plane;
     
-    Image* output;
+    std::string outputdir;
+    Image*      output;
     
     void  setCUVN();                        //Coloca los vectores u, v y n
     void  renderVertexs(Object o);          //Renderiza los vertices
@@ -45,7 +46,7 @@ public:
     float FOV;
     float distPant;
     
-    Camera(Vector position, Vector lookat, int width = 500, int height = 500); //Constructor
+    Camera(Vector position, Vector lookat, std::string outputdir, int width = 500, int height = 500); //Constructor
     void setCamera(Vector start, Vector end);                                  //Coloca la cámara
 
     

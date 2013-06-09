@@ -8,7 +8,7 @@
 
 #include "Camera.h"
 
-Camera::Camera(Vector position, Vector lookat, int width, int height){
+Camera::Camera(Vector position, Vector lookat, std::string outputdir, int width, int height){
     setCamera(position, lookat);
     
     output = new Image(width, height);
@@ -24,6 +24,8 @@ Camera::Camera(Vector position, Vector lookat, int width, int height){
     //FOV es el ángulo que forma el punto C con los bordes de la pantalla.
     FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
     distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
+    
+    this->outputdir = outputdir;
 }
 
 void Camera::setCamera(Vector position, Vector lookat){
@@ -70,12 +72,12 @@ void Camera::render(Object o){
     renderVertexs(o);
     rasterizePolygons(o);
     
-    /*//Este código es perfecto para testear el raster
+    /*/Este código es perfecto para testear el raster
      for(int i = 10; i < plane.width-9; i+=10)
         for(int j = 10; j < plane.height-9; j+=10)
             rasterize(Vector(plane.half_width,plane.half_height), Vector(i,j));*/
     
-    output->saveTGA("/Users/danibarca/Desktop/result1010.tga");
+    output->saveTGA(outputdir.c_str());
 }
 
 void Camera::renderVertexs(Object o){
@@ -109,9 +111,6 @@ void Camera::renderVertexs(Object o){
         
         //Por último, si están dentro del viewPlane, los dibujamos
         if(x < 500 && y < 500 && x >= 0 && y >= 0){
-            if(i==4)
-                output->setPixel(Color(255,0,0), x, y);
-            else
                 output->setPixel(Color(255,255,255), x, y);
         }
     }
