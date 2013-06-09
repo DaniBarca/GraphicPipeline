@@ -23,6 +23,7 @@ int round(float x);
 typedef struct{
     int x;
     int y;
+    int z;
 }scrPosition;
 
 class Vector{

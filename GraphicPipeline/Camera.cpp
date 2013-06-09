@@ -84,7 +84,7 @@ void Camera::renderVertexs(Object o){
     std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
     
     int x,y;
-    float fx, fy, w;
+    float fx, fy, fz, w;
     Vector vaux;
     
     scrPosition auxPosition;
@@ -99,6 +99,7 @@ void Camera::renderVertexs(Object o){
         
         fx = (vaux.x/w)*distPant + plane.half_width;      //Obtenemos x
         fy = (vaux.y/w)*distPant + plane.half_height;     //Obtenemos y
+        fz = (vaux.z/w);
         
         //Y los redondeamos:
         x  = round(fx);
@@ -106,6 +107,7 @@ void Camera::renderVertexs(Object o){
         
         auxPosition.x = x;
         auxPosition.y = y;
+        auxPosition.z = fz;
         
         o.mesh->positions->at(i) = auxPosition;
         

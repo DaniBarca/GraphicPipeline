@@ -13,7 +13,7 @@ Mesh::Mesh(std::string dir){
     polygons= new std::vector<Polygon*>();
     positions=new std::vector<scrPosition>();
     
-    scrPosition aux; aux.x = 0; aux.y = 0;
+    scrPosition aux; aux.x = 0; aux.y = 0; aux.z = 0;
     
     if(!parseFile(dir))
         std::cout << "No se ha podido leer el fichero" << std::endl;
@@ -64,6 +64,7 @@ bool Mesh::parseFile(std::string dir){
         }
         std::cout << std::endl;
         
+        auxb->getNormal();
         polygons->push_back(auxb);
     }
     
