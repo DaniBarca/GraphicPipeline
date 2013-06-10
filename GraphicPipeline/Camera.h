@@ -28,6 +28,7 @@ class Camera{
         int half_height;
     }plane;
     
+    bool inverseN;                          //Boolean para invertir las normales si es necesario
     std::string outputdir;
     Image*      output;
     
@@ -49,7 +50,7 @@ public:
     float FOV;
     float distPant;
     
-    Camera(Vector position, Vector lookat, std::string outputdir, int width = 500, int height = 500); //Constructor
+    Camera(Vector position, Vector lookat, std::string outputdir, int width = 500, int height = 500, bool inverseN = false); //Constructor
     void setCamera(Vector start, Vector end);                                  //Coloca la cámara
 
     

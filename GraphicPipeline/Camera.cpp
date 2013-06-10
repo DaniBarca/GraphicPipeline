@@ -8,7 +8,7 @@
 
 #include "Camera.h"
 
-Camera::Camera(Vector position, Vector lookat, std::string outputdir, int width, int height){
+Camera::Camera(Vector position, Vector lookat, std::string outputdir, int width, int height, bool inverseN){
     //Generamos la información del plano
     //Si calculamos ahora la mitad de la altura y el ancho, no tendremos que hacerlo en cada render
     plane.width  = width;
@@ -23,6 +23,8 @@ Camera::Camera(Vector position, Vector lookat, std::string outputdir, int width,
     output->setBlack();
     
     this->outputdir = outputdir;
+    
+    this->inverseN = inverseN;
 }
 
 void Camera::setCamera(Vector position, Vector lookat){
@@ -141,6 +143,9 @@ void Camera::rasterizePolygons(Object o){
     //En resumen, lo que hacemos es pasar las coordenadas de pantalla de los puntos que queremos rasterizar
     for(int i = 0; i < polygons->size(); ++i){
         pNormal          = polygons->at(i)->normal;             //Cogemos la normal
+        
+        if(inverseN) pNormal = pNormal * -1;
+        
         pNormal          = o.model->rotateVector(pNormal);      //La rotamos tal como esté el objeto
         dotProduct       = N.dot(pNormal);                      //Y calculamos el dot product con la normal de la cámara
         

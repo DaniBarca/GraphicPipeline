@@ -25,6 +25,10 @@ int main(int argc, const char * argv[])
     std::string outdir = argv[2];
     Object o = Object(dir, Vector(-0.5,0,-0.5));
     Camera *c = new Camera(Vector(20,1,10), Vector(0,0,0), outdir, WIDTH, HEIGHT);
+    
+    //El último parametro del constructor invierte las normales, por defecto false
+    //Camera *c = new Camera(Vector(20,1,10), Vector(0,0,0), outdir, WIDTH, HEIGHT, true);
+    
     c->render(o);
     
 	system("pause");
