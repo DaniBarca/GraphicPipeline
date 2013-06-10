@@ -73,8 +73,8 @@ void Camera::render(Object o){
     rasterizePolygons(o);
     
     /*/Este código es perfecto para testear el raster
-     for(int i = 10; i < plane.width-9; i+=10)
-        for(int j = 10; j < plane.height-9; j+=10)
+     for(int i = 10; i < plane.width-9; i+=20)
+        for(int j = 10; j < plane.height-9; j+=20)
             rasterize(Vector(plane.half_width,plane.half_height), Vector(i,j));*/
     
     output->saveTGA(outputdir.c_str());
@@ -112,9 +112,9 @@ void Camera::renderVertexs(Object o){
         o.mesh->positions->at(i) = auxPosition;
         
         //Por último, si están dentro del viewPlane, los dibujamos
-        if(x < 500 && y < 500 && x >= 0 && y >= 0){
-                output->setPixel(Color(255,255,255), x, y);
-        }
+        //if(x < 500 && y < 500 && x >= 0 && y >= 0){
+        //        output->setPixel(Color(255,255,255), x, y);
+        //}
     }
 }
 
@@ -125,10 +125,18 @@ void Camera::rasterizePolygons(Object o){
     
     Polygon paux;
     int j;
+    Vector pNormal;
+    double dotProduct;
     
     //Puede ser complicado de leer por la complejidad con la que guardamos los datos
     //En resumen, lo que hacemos es pasar las coordenadas de pantalla de los puntos que queremos rasterizar
     for(int i = 0; i < polygons->size(); ++i){
+        pNormal          = *o.rotationModel * polygons->at(i)->normal;
+        dotProduct       = pNormal.dot(N);
+        
+        if(dotProduct > 0)
+            continue;
+        
         for(j = 0; j < polygons->at(i)->vertexs->size()-1 ; ++j){
             vaux = polygons->at(i)->vertexs;
             
@@ -139,6 +147,22 @@ void Camera::rasterizePolygons(Object o){
         //Rasterizamos el último vertice con el primero para cerrar el polígono
         rasterize(Vector(positions->at(vaux->at(j)).x, positions->at(vaux->at(j)).y), Vector(positions->at(vaux->at(0)).x, positions->at(vaux->at(0)).y));
     }
+    
+    /*bool gotLine = false;
+    for(int i = 0; i < plane.width-1; ++i){
+        gotLine = false;
+        for(int j = 0; j < plane.height-1; ++j){
+            if(output->getPixel(i,j) == Color(255, 255, 255)){
+                if(gotLine && !(output->getPixel(i,j-1) == Color(255, 255, 255)))
+                    gotLine = false;
+                else
+                    gotLine = true;
+                continue;
+            }
+            if(gotLine)
+                output->setPixel(Color(255,0,0), i, j);
+        }
+    }*/
 }
 
 void Camera::rasterize(Vector start, Vector end){
@@ -234,9 +258,9 @@ void Camera::rasterize(Vector start, Vector end){
                 y++;
             }
             
-            if(angulo < 0 && y > 0 && y < plane.height)
+            if(angulo < 0 && y > 0 && y < plane.height && x > 0 && x < plane.width)
                 output->setPixel(Color(255,255,255), (plane.half_width - (x-plane.half_width)), y);
-            else if(y > 0 && y < plane.height)
+            else if(y > 0 && y < plane.height && x > 0 && x < plane.width)
                 output->setPixel(Color(255,255,255), x, y);
         }
         return;
@@ -250,7 +274,7 @@ void Camera::rasterize(Vector start, Vector end){
     float mf = (end.x - start.x) / (end.y - start.y) - mi;
     
     for(int y = start.y; y < end.y; ++y){
-        if(y > 0 && y < plane.height)
+        if(y > 0 && y < plane.height && xi < plane.width && xi > 0)
             output->setPixel(Color(255,255,255), xi, y);
         
         xi += mi;
