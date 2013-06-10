@@ -9,15 +9,12 @@
 #include "Object.h"
 
 Object::Object(std::string dir, Vector position){
-    mesh = new Mesh(dir.c_str());
-    model         = new Matrix();
-    rotationModel = new Matrix();
+    mesh  = new Mesh(dir.c_str());
+    model = new Matrix();
     
-    model        ->setIdentity();
-    rotationModel->setIdentity();
+    model->setIdentity();
     
     model->setPosition(position);
     
-    //model        ->setRotation(DEGTORAD(70 % 360), Vector(0,0,1));
-    //rotationModel->setRotationMatrix(DEGTORAD(70%360), Vector(0,0,1));
+    //model->setRotation(DEGTORAD(0.1), Vector(0,0,1));
 }

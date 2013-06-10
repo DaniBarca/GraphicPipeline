@@ -29,9 +29,9 @@ typedef struct{
 class Vector{
 public:
     struct{
-        float x;
-        float y;
-        float z;
+        double x;
+        double y;
+        double z;
     };
     
     Vector(float x = 0, float y = 0, float z = 0);
@@ -61,7 +61,7 @@ Vector operator *(const Vector& a, const float&  b);
 
 class Matrix{
 public:
-    float m[16];
+    double m[16];
     
     Matrix();
     void setIdentity();
@@ -75,8 +75,8 @@ public:
         }
     }
     
-    void  set(int i, int j, float stuff);
-    float get(int i, int j) const;
+    void   set(int i, int j, float stuff);
+    double get(int i, int j) const;
     
     void copy(Matrix mx){
         for(int i = 0; i < 16; ++i)

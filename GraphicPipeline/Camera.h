@@ -16,8 +16,8 @@
 #include "Polygon.hpp"
 #include "image.hpp"
 
-#define DISTPLANEC  3
-#define IDISTPLANEC 1/DISTPLANEC
+#define DISTPLANEC   500
+#define DISTFARPLANE 1000
 
 
 class Camera{
@@ -32,11 +32,14 @@ class Camera{
     Image*      output;
     
     void  setCUVN();                        //Coloca los vectores u, v y n
+    void  setPerspective();                 //Actualiza a matriz tpers * tview
+    
     void  renderVertexs(Object o);          //Renderiza los vertices
     void  rasterize(Vector a, Vector b);    //Dibuja una línea entre a y b (son coordenadas 2D, aunque la clase Vector tenga una 3a componente, no la usaremos).
     void  rasterizePolygons(Object o);      //Rasterizamos las líneas entre los vértices
 public:
     Matrix* model;
+    Matrix* tPers;
     
     Vector N;
     Vector U;

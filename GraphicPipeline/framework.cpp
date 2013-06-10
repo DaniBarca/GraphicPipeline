@@ -75,7 +75,7 @@ void Matrix::set(int i, int j, float stuff){
 }
 
 //coger numero de la matriz en esa posición
-float Matrix::get(int i, int j) const{
+double Matrix::get(int i, int j) const{
     return m[i*4 + j];
 }
 

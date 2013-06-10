@@ -12,21 +12,19 @@
 #include "Object.h"
 #include "Camera.h"
 
-#define WIDTH  512
-#define HEIGHT 512
+#define WIDTH  600
+#define HEIGHT 600
 
 int main(int argc, const char * argv[])
-{
-    //Image* img = new Image(WIDTH,HEIGHT);
-    
+{    
     if(argc != 3)
         std::cout << "ERROR: número de argumentos incorrecto" << std::endl;
     
     //Leer archivo
-    std::string dir = argv[1];
+    std::string dir    = argv[1];
     std::string outdir = argv[2];
-    Object o = Object(dir, Vector(0,0,0));
-    Camera *c = new Camera(Vector(2.8,0,1), Vector(0,0,0), outdir, WIDTH, HEIGHT);
+    Object o = Object(dir, Vector(-0.5,-0.5,-0.5));
+    Camera *c = new Camera(Vector(4,0.3,0.5), Vector(0,0,0), outdir, WIDTH, HEIGHT);
     c->render(o);
     
 	system("pause");

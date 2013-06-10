@@ -9,11 +9,6 @@
 #include "Camera.h"
 
 Camera::Camera(Vector position, Vector lookat, std::string outputdir, int width, int height){
-    setCamera(position, lookat);
-    
-    output = new Image(width, height);
-    output->setBlack();
-    
     //Generamos la información del plano
     //Si calculamos ahora la mitad de la altura y el ancho, no tendremos que hacerlo en cada render
     plane.width  = width;
@@ -21,15 +16,18 @@ Camera::Camera(Vector position, Vector lookat, std::string outputdir, int width,
     plane.half_width  = width  * 0.5;
     plane.half_height = height * 0.5;
     
-    //FOV es el ángulo que forma el punto C con los bordes de la pantalla.
-    FOV = 2 * cos(DISTPLANEC / sqrt(DISTPLANEC*DISTPLANEC + (width*width)*0.25));
-    distPant = (cos(FOV * 0.5) * (plane.width * 0.5)) / sin (FOV * 0.5);
+    //Generamos la información de la cámara
+    setCamera(position, lookat);
+    
+    output = new Image(width, height);
+    output->setBlack();
     
     this->outputdir = outputdir;
 }
 
 void Camera::setCamera(Vector position, Vector lookat){
     model = new Matrix(); //posicion de la camara
+    tPers = new Matrix();
     
     C = position; //vector con coordenadas x,y,z de la posicion de la camara
     
@@ -40,8 +38,21 @@ void Camera::setCamera(Vector position, Vector lookat){
     V = N * Vector(0,1,0);
     U = N * Vector(0,0,1);
     
-    //Aplicamos U, V, N a la matriz:
+    //Creamos la matriz perspectiva
+    setPerspective();
+    
+    //La multiplicamos por la matriz vista:
     setCUVN();
+}
+
+void Camera::setPerspective(){
+    tPers->clean();
+
+    tPers->m[0] = (double)DISTPLANEC / plane.half_height;
+    tPers->m[5] = (double)DISTPLANEC / plane.half_height;
+    tPers->m[10]= (double)DISTFARPLANE / ((double)DISTFARPLANE - (double)DISTPLANEC);
+    tPers->m[11]= -((double)DISTPLANEC * (double)DISTFARPLANE)/((double)DISTFARPLANE - (double)DISTPLANEC);
+    tPers->m[14]= 1;
 }
 
 //Actualizar la matriz de vectores de la cámara
@@ -84,7 +95,7 @@ void Camera::renderVertexs(Object o){
     std::vector<Vector*>* vertexs = o.getMesh()->getVertexs();
     
     int x,y;
-    float fx, fy, fz, w;
+    float fz;
     Vector vaux;
     
     scrPosition auxPosition;
@@ -93,17 +104,15 @@ void Camera::renderVertexs(Object o){
         vaux = *vertexs->at(i);                 //Obtenemos el vertice i
         
         vaux = *o.model * vaux;                 //Lo multiplicamos por la matriz del objeto
-        vaux = *model * vaux;                   //Lo multiplicamos por la matriz de la camara
+        vaux = *tPers * *model * vaux;                   //Lo multiplicamos por la matriz de la camara
         
-        w = vaux.z * IDISTPLANEC;               //Obtenemos la w
-        
-        fx = (vaux.x/w)*distPant + plane.half_width;      //Obtenemos x
-        fy = (vaux.y/w)*distPant + plane.half_height;     //Obtenemos y
-        fz = (vaux.z/w);
+        vaux.x = (vaux.x + 1) * plane.half_width;
+        vaux.y = (vaux.y + 1) * plane.half_height;
         
         //Y los redondeamos:
-        x  = round(fx);
-        y  = round(fy);
+        x  = round(vaux.x);
+        y  = round(vaux.y);
+        fz = vaux.z;
         
         auxPosition.x = x;
         auxPosition.y = y;
@@ -131,11 +140,12 @@ void Camera::rasterizePolygons(Object o){
     //Puede ser complicado de leer por la complejidad con la que guardamos los datos
     //En resumen, lo que hacemos es pasar las coordenadas de pantalla de los puntos que queremos rasterizar
     for(int i = 0; i < polygons->size(); ++i){
-        pNormal          = *o.rotationModel * polygons->at(i)->normal;
-        dotProduct       = pNormal.dot(N);
+        pNormal          = polygons->at(i)->normal;             //Cogemos la normal
+        pNormal          = o.model->rotateVector(pNormal);      //La rotamos tal como esté el objeto
+        dotProduct       = N.dot(pNormal);                      //Y calculamos el dot product con la normal de la cámara
         
-        if(dotProduct > 0)
-            continue;
+        if(dotProduct > 0)                                      //Si la normal del polígono no mira a la cámara
+            continue;                                           //Nothing to do here
         
         for(j = 0; j < polygons->at(i)->vertexs->size()-1 ; ++j){
             vaux = polygons->at(i)->vertexs;
@@ -147,22 +157,6 @@ void Camera::rasterizePolygons(Object o){
         //Rasterizamos el último vertice con el primero para cerrar el polígono
         rasterize(Vector(positions->at(vaux->at(j)).x, positions->at(vaux->at(j)).y), Vector(positions->at(vaux->at(0)).x, positions->at(vaux->at(0)).y));
     }
-    
-    /*bool gotLine = false;
-    for(int i = 0; i < plane.width-1; ++i){
-        gotLine = false;
-        for(int j = 0; j < plane.height-1; ++j){
-            if(output->getPixel(i,j) == Color(255, 255, 255)){
-                if(gotLine && !(output->getPixel(i,j-1) == Color(255, 255, 255)))
-                    gotLine = false;
-                else
-                    gotLine = true;
-                continue;
-            }
-            if(gotLine)
-                output->setPixel(Color(255,0,0), i, j);
-        }
-    }*/
 }
 
 void Camera::rasterize(Vector start, Vector end){
@@ -216,14 +210,6 @@ void Camera::rasterize(Vector start, Vector end){
         end = start;
         start = aux;
     }
-    
-    if(start.x < 0)
-        if(end.z < 0)
-            return;
-    if(start.x > plane.width)
-        if(end.x > plane.width)
-            return;
-    
     
     //Calculamos el ángulo respecto a la línea horizontal
     float pendiente = (start.y - end.y)/(start.x-end.x);
