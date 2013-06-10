@@ -16,7 +16,7 @@
 #include "Polygon.hpp"
 #include "image.hpp"
 
-#define DISTPLANEC   500
+#define DISTPLANEC   300
 #define DISTFARPLANE 1000
 
 

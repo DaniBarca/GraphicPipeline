@@ -104,7 +104,7 @@ void Camera::renderVertexs(Object o){
         vaux = *vertexs->at(i);                 //Obtenemos el vertice i
         
         vaux = *o.model * vaux;                 //Lo multiplicamos por la matriz del objeto
-        vaux = *tPers * *model * vaux;                   //Lo multiplicamos por la matriz de la camara
+        vaux = *tPers * *model * vaux;          //Lo multiplicamos por la matriz de la camara
         
         vaux.x = (vaux.x + 1) * plane.half_width;
         vaux.y = (vaux.y + 1) * plane.half_height;
@@ -120,7 +120,7 @@ void Camera::renderVertexs(Object o){
         
         o.mesh->positions->at(i) = auxPosition;
         
-        //Por último, si están dentro del viewPlane, los dibujamos
+        //Estas líneas dibujan el píxel correspondiente al vértice en pantalla
         //if(x < 500 && y < 500 && x >= 0 && y >= 0){
         //        output->setPixel(Color(255,255,255), x, y);
         //}
