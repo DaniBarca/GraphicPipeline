@@ -33,6 +33,7 @@ public:
 };
 
 Color operator * (const Color& c,float v);
+bool operator ==(const Color& ca, const Color& cb);
 void operator *= (Color& c,float v);
 Color operator / (const Color& c,float v);
 void operator /= (Color& c,float v);

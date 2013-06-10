@@ -18,6 +18,8 @@ class Object{
 public:
     Mesh* mesh;
     Matrix* model;
+    Matrix* rotationModel;
+    
     Object(std::string dir, Vector position);
     Mesh* getMesh(){ return mesh; }
 };

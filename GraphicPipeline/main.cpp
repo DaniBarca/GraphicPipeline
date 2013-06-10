@@ -12,8 +12,8 @@
 #include "Object.h"
 #include "Camera.h"
 
-#define WIDTH  500
-#define HEIGHT 500
+#define WIDTH  512
+#define HEIGHT 512
 
 int main(int argc, const char * argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, const char * argv[])
     std::string dir = argv[1];
     std::string outdir = argv[2];
     Object o = Object(dir, Vector(0,0,0));
-    Camera *c = new Camera(Vector(10,4,1), Vector(0,0,0), outdir, WIDTH, HEIGHT);
+    Camera *c = new Camera(Vector(2.8,0,1), Vector(0,0,0), outdir, WIDTH, HEIGHT);
     c->render(o);
     
 	system("pause");

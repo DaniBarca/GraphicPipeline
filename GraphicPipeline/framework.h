@@ -105,4 +105,6 @@ Vector line(Vector a, Vector b, float t);
 //Devuelve el punto de intersección entre una recta y un plano
 Vector linePlaneIntersection(Vector linePoint, Vector lineDir, Vector planePoint, Vector planeNormal);
 
+bool doesIntersect(Vector planeNormal, Vector lineDir);
+
 #endif /* defined(__GraphicPipeline__framework__) */

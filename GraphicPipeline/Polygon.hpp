@@ -22,13 +22,6 @@ public:
         nSides = 0;
         vertexs = new std::vector<int>();
     }
-    
-    void getNormal(){
-        Vector v1 = vertexs->at(1) - vertexs->at(0);
-        Vector v2 = vertexs->at(2) - vertexs->at(1);
-        
-        normal = v1 * v2;
-    }
 };
 
 #endif

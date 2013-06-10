@@ -11,6 +11,7 @@
 float clamp(float x, float a, float b) { return x < a ? a : (x > b ? b : x); }
 
 Color operator * (const Color& c,float v) { return Color(c.r*v, c.g*v, c.b*v); }
+bool operator ==(const Color& ca, const Color& cb) { return (ca.r == cb.r && ca.g == cb.g && ca.b == cb.b); }
 void operator *= (Color& c,float v) { c = c * v; }
 Color operator / (const Color& c,float v) { return Color(c.r/v, c.g/v, c.b/v); }
 void operator /= (Color& c,float v) { c = c / v; }

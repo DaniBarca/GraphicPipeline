@@ -47,6 +47,7 @@ bool Mesh::parseFile(std::string dir){
     //Leemos los polígonos
     Polygon* auxb;
     int num;
+    Vector v1, v2, M, N;
     for(int i = 0; i < nPolygons; ++i){
         auxb = new Polygon();
         auxb->nSides = parser.getint();
@@ -64,7 +65,14 @@ bool Mesh::parseFile(std::string dir){
         }
         std::cout << std::endl;
         
-        auxb->getNormal();
+        v1 = *vertexs->at(auxb->vertexs->at(0)) - *vertexs->at(auxb->vertexs->at(1));
+        v2 = *vertexs->at(auxb->vertexs->at(2)) - *vertexs->at(auxb->vertexs->at(0));
+        
+        auxb->normal = v2 * v1;
+        auxb->normal.norm();
+        
+        auxb->normal.printVector();
+        
         polygons->push_back(auxb);
     }
     

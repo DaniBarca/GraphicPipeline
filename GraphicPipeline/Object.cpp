@@ -10,10 +10,14 @@
 
 Object::Object(std::string dir, Vector position){
     mesh = new Mesh(dir.c_str());
-    model= new Matrix();
-    model->setIdentity();
+    model         = new Matrix();
+    rotationModel = new Matrix();
+    
+    model        ->setIdentity();
+    rotationModel->setIdentity();
     
     model->setPosition(position);
     
-    //model->setRotation(DEGTORAD(33 % 360), Vector(0,0,1));
+    //model        ->setRotation(DEGTORAD(70 % 360), Vector(0,0,1));
+    //rotationModel->setRotationMatrix(DEGTORAD(70%360), Vector(0,0,1));
 }

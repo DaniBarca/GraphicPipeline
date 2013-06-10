@@ -32,7 +32,7 @@ void Vector::norm(){
 }
 
 float Vector::dot(Vector v){
-    return x * v.x + y * v.y;
+    return x * v.x + y * v.y + z*v.z;
 }
 
 float Vector::dist(Vector b){
@@ -262,4 +262,8 @@ Vector linePlaneIntersection(Vector linePoint, Vector lineDir, Vector planePoint
     d = d/(lineDir.dot(planeNormal));
     
     return line(linePoint, linePoint+lineDir, d);
+}
+
+bool doesIntersect(Vector planeNormal, Vector lineDir){
+    return (planeNormal.dot(lineDir) > 0);
 }
