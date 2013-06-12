@@ -64,11 +64,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/danibarca/Documents/programas/GraphicPipeline/data/sphere.txt"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/danibarca/Documents/programas/GraphicPipeline/data/tetera.txt"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/danibarca/Documents/Programas/GraphicPipeline/data/cono.txt"

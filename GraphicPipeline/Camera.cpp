@@ -38,7 +38,7 @@ void Camera::setCamera(Vector position, Vector lookat){
     N.norm();
     
     V = N * Vector(0,1,0);
-    U = N * Vector(0,0,1);
+    U = N * V;
     
     //Creamos la matriz perspectiva
     setPerspective();

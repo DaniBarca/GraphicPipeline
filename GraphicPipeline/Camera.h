@@ -17,7 +17,7 @@
 #include "image.hpp"
 
 #define DISTPLANEC   300
-#define DISTFARPLANE 1000
+#define DISTFARPLANE 900
 
 
 class Camera{
