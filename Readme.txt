@@ -1,5 +1,8 @@
 Compilar con:
   g++ GraphicPipeline/*.cpp GraphicPipeline/textParser/*.cpp -o app -std=c++0x
+  
+En Mac puede que funcione mejor:
+  g++ GraphicPipeline/*.cpp GraphicPipeline/textParser/*.cpp -o app -std=c++98
 
 Modo de empleo:
   ./app <Ruta del archivo input> <Ruta del archivo output>
