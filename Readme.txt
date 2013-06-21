@@ -3,7 +3,7 @@ Puedes usar este código o parte de él para lo que te de la gana cuando te de l
 Compilar con:
   g++ GraphicPipeline/*.cpp GraphicPipeline/textParser/*.cpp -o app -std=c++0x
   
-En Mac puede que funcione mejor:
+En Mac puede que funcione mejor el siguiente comando:
   g++ GraphicPipeline/*.cpp GraphicPipeline/textParser/*.cpp -o app -std=c++98
 
 Modo de empleo:
